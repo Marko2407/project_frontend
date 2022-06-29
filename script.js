@@ -6,14 +6,17 @@ const searchInput = form.elements['search'];
 let getAllWorkouts = new Promise(function(myResolve, myReject){
     const workouts = queryFetch(`
     query {
-        getAllWorkouts {
-            id
+        getCurrentWeekWorkouts {
             day
-            title
-            description
-            dateCreated
+            workouts {
+              id
+              title
+              day
+              dateCreated
+              description
+            }
           }
-    }
+        }
     `)
     checkResult(workouts, myResolve, myReject)
 
@@ -31,11 +34,16 @@ function checkResult (result, myResolve, myReject){
 getAllWorkouts.then(
     function(value){
        list = value.data
-       list.getAllWorkouts.forEach(e => {
+       list.getCurrentWeekWorkouts.forEach(e => {
         console.log(e);
         let element = document.createElement('div')
-        element.innerText = e.title
-         workoutList.append(element) 
+        element.innerText = e.day
+        workoutList.append(element) 
+        e.workouts.forEach(workouts => {
+            let element = document.createElement('div')
+            element.innerText = workouts.title
+            workoutList.append(element) 
+        })
     });
     
     },
