@@ -3,8 +3,8 @@ let list = []
 const form = document.getElementById('search')
 const searchInput = form.elements['search'];
 
-let getAllWorkouts = new Promise(function(myResolve, myReject){
-    const workouts = queryFetch(`
+async function getAll(){
+    const workouts = await queryFetch(`
     query {
         getCurrentWeekWorkouts {
             day
@@ -18,37 +18,22 @@ let getAllWorkouts = new Promise(function(myResolve, myReject){
           }
         }
     `)
-    checkResult(workouts, myResolve, myReject)
-
-})
- 
-function checkResult (result, myResolve, myReject){
-   if(result != null){
-        return  myResolve(result)
-    }else{
-        return  myReject("Error")
-    }
+    workouts.data.getCurrentWeekWorkouts.forEach(data => {
+      console.log(data)
+     let element = document.createElement('div')
+     element.innerText = data.day
+     workoutList.append(element) 
+     data.workouts.forEach(workouts => {
+         let element = document.createElement('div')
+         element.innerText = workouts.title
+         workoutList.append(element) 
+     })
+ });
 }
 
+//First method to initiate when page open
+getAll()
 
-getAllWorkouts.then(
-    function(value){
-       list = value.data
-       list.getCurrentWeekWorkouts.forEach(e => {
-        console.log(e);
-        let element = document.createElement('div')
-        element.innerText = e.day
-        workoutList.append(element) 
-        e.workouts.forEach(workouts => {
-            let element = document.createElement('div')
-            element.innerText = workouts.title
-            workoutList.append(element) 
-        })
-    });
-    
-    },
-    function(error){console.log(error);}
-)
 
 form.addEventListener('submit', async e => {
     e.preventDefault()
