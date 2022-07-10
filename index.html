@@ -7,28 +7,49 @@
     <!-- CSS -->
     <link rel="stylesheet" href="stylesheet.css" />
 
-    <!-- JS -->
-    <script src="pocetna.js"></script>
+    <!-- JS
+    <script src="pocetna.js"></script> -->
     <title>Početna</title>
   </head>
   <body>
     <div class="row">
-      <div class="blok-podaci"><p>blok 1</p></div>
-      <div class="blok-grafovi"><p>blok2</p></div>
+      <div class="blok blok-podaci"><p>blok 1</p></div>
+      <div class="blok blok-grafovi"><p>blok2</p></div>
 
       <!-- <h2>Odrađene vježbe u trenutnom danu</h2> -->
-      <div class="blok-vjezbe">
+      <div class="blok blok-vjezbe">
         <div class="blok-vjezbe__dani">
           <h3 class="workoutTitle"></h3>
           <p>test test</p>
         </div>
         <div class="blok-vjezbe__gumbi">
           <a href="vježbe.html"> <button class="btn">Sve vježbe</button></a>
-          <button class="btn">Dodaj</button>
+          <button class="btn" id="open">Dodaj</button>
         </div>
       </div>
     </div>
 
+    <div class="modal-container" id="modal_container">
+      <div class="modal">
+        <h3>Unos vježbi:</h3>
+        <label for="dan">Dan: </label>
+        <input type="text" id="dan" />
+        <br />
+        <label for="vjezba1">Vježba: </label>
+        <input type="text" id="vjezba1" />
+        <br />
+        <label for="vjezba2">Vježba: </label>
+        <input type="text" id="vjezba2" />
+        <br />
+        <label for="vjezba3">Vježba: </label>
+        <input type="text" id="vjezba3" />
+        <br />
+        <button id="close">Zatvori</button>
+      </div>
+    </div>
     <a href="vježbe.html"><button>Sve vježbe</button></a>
+
+    <!-- JS -->
+    <script src="pocetna.js"></script>
   </body>
 </html>

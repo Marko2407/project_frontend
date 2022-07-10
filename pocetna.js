@@ -1,6 +1,27 @@
 const workoutList = document.getElementById('workout-list');
 const workoutTitle = document.getElementById('workoutNames');
 
+// MODAL
+
+const openModal = document.getElementById('open');
+const modalContainer = document.getElementById('modal_container');
+const closeModal = document.getElementById('close');
+
+// function addClass() {
+//   modalContainer.classList.add('show');
+// }
+// function removeClass() {
+//   modalContainer.classList.remove('show');
+// }
+
+openModal.addEventLisener('click', () => {
+  modalContainer.classList.add('show');
+});
+
+closeModal.addEventLisener('click', () => {
+  modalContainer.classList.remove('show');
+});
+
 async function getAll() {
   const workouts = await queryFetch(`
     query {
