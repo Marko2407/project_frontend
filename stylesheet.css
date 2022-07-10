@@ -1,3 +1,11 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: rgb(60, 60, 60);
+}
+
 body {
   background-color: #ebebeb;
 }
@@ -57,7 +65,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   opacity: 0;
   pointer-events: none;
@@ -65,6 +73,7 @@ body {
   left: 0;
   height: 100vh;
   width: 100vw;
+  transition: opacity 0.25s ease;
 }
 
 .modal-container.show {
@@ -77,15 +86,66 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 30px 50px;
-  width: 800px;
+  width: 850px;
   max-width: 100%;
   text-align: center;
 }
 
 .modal h3 {
   margin: 0;
+  font-size: 1.8rem;
+  position: relative;
+  top: -30px;
 }
 
 .modal input {
   margin: 15px 0 15px 0;
+  width: 10rem;
+  height: 2rem;
+  border: 1px solid #b1aeae;
+  border-radius: 5px;
+}
+
+.modal textarea {
+  border: 1px solid #b1aeae;
+  border-radius: 5px;
+}
+
+/* TABLICA U MODALU */
+
+table {
+  margin: 1.5rem 0 2rem 0;
+}
+
+table tr th {
+  padding-bottom: 1rem;
+}
+
+table tr td {
+  padding: 0 1rem 0 1rem;
+}
+
+.fa-close {
+  position: relative;
+  left: 380px;
+  transition: color 0.15s ease;
+}
+
+.fa-close:hover {
+  color: #32a8a8;
+}
+
+/* GUMB */
+.modal .btn {
+  width: 12rem;
+  height: 2.5rem;
+  border: 1px solid #b1aeae;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: box-shadow 0.25s ease;
+}
+
+.modal .btn:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: #32a8a8 1px solid;
 }

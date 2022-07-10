@@ -7,6 +7,12 @@
     <!-- CSS -->
     <link rel="stylesheet" href="stylesheet.css" />
 
+    <!--FA ICON -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <!-- JS
     <script src="pocetna.js"></script> -->
     <title>Početna</title>
@@ -31,8 +37,8 @@
 
     <div class="modal-container" id="modal_container">
       <div class="modal">
+        <i class="fa fa-close" id="close" style="font-size: 28px"></i>
         <h3>Unos vježbi:</h3>
-        <br /><br />
         <table>
           <tr>
             <th>Vježba:</th>
@@ -43,50 +49,48 @@
 
           <tr>
             <td>
-              <input type="text" />
+              <input type="text" name="vj1" />
             </td>
             <td>
-              <input type="text" />
+              <input type="number" value="1" name="s1" />
             </td>
             <td>
-              <input type="text" />
+              <input type="number" value="1" name="r1" />
             </td>
             <td>
-              <textarea name="opis" id="opis" cols="20" rows="1"></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" />
-            </td>
-            <td>
-              <input type="text" />
-            </td>
-            <td>
-              <input type="text" />
-            </td>
-            <td>
-              <textarea name="opis" id="opis" cols="20" rows="1"></textarea>
+              <textarea name="opisVj1" id="opis" cols="20" rows="2"></textarea>
             </td>
           </tr>
           <tr>
             <td>
-              <input type="text" />
+              <input type="text" name="vj2" />
             </td>
             <td>
-              <input type="text" />
+              <input type="number" value="1" name="s2" />
             </td>
             <td>
-              <input type="text" />
+              <input type="number" value="1" name="r2" />
             </td>
             <td>
-              <textarea name="opis" id="opis" cols="20" rows="1"></textarea>
+              <textarea name="opisVj2" id="opis" cols="20" rows="2"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" name="vj3" />
+            </td>
+            <td>
+              <input type="number" value="1" name="s3" />
+            </td>
+            <td>
+              <input type="number" value="1" name="r3" />
+            </td>
+            <td>
+              <textarea name="opisVj3" id="opis" cols="20" rows=""></textarea>
             </td>
           </tr>
         </table>
-        <br />
-        <input type="submit" value="Unesi" />
-        <button id="close">Zatvori</button>
+        <button class="btn" id="add">Unesi</button>
       </div>
     </div>
     <a href="vježbe.html"><button>Sve vježbe</button></a>
