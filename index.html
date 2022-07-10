@@ -19,8 +19,8 @@
       <!-- <h2>Odrađene vježbe u trenutnom danu</h2> -->
       <div class="blok blok-vjezbe">
         <div class="blok-vjezbe__dani">
-          <h3 class="workoutTitle"></h3>
-          <p>test test</p>
+          <h3 id="trenutni-dan"></h3>
+          <div id="container-vjezbe"></div>
         </div>
         <div class="blok-vjezbe__gumbi">
           <a href="vježbe.html"> <button class="btn">Sve vježbe</button></a>
@@ -32,18 +32,60 @@
     <div class="modal-container" id="modal_container">
       <div class="modal">
         <h3>Unos vježbi:</h3>
-        <label for="dan">Dan: </label>
-        <input type="text" id="dan" />
+        <br /><br />
+        <table>
+          <tr>
+            <th>Vježba:</th>
+            <th>Serije:</th>
+            <th>Ponavljanja:</th>
+            <th>Opis:</th>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <textarea name="opis" id="opis" cols="20" rows="1"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <textarea name="opis" id="opis" cols="20" rows="1"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <input type="text" />
+            </td>
+            <td>
+              <textarea name="opis" id="opis" cols="20" rows="1"></textarea>
+            </td>
+          </tr>
+        </table>
         <br />
-        <label for="vjezba1">Vježba: </label>
-        <input type="text" id="vjezba1" />
-        <br />
-        <label for="vjezba2">Vježba: </label>
-        <input type="text" id="vjezba2" />
-        <br />
-        <label for="vjezba3">Vježba: </label>
-        <input type="text" id="vjezba3" />
-        <br />
+        <input type="submit" value="Unesi" />
         <button id="close">Zatvori</button>
       </div>
     </div>
