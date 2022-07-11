@@ -12,7 +12,7 @@ body {
 
 .row {
   width: 70vw;
-  height: 90%;
+  min-height: 90%;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,8 @@ body {
 
 .blok {
   width: 95%;
-  height: 20%;
+  min-height: 20%;
+  /* margin: 2rem 0 2rem 0; */
   border-radius: 10px;
   background-color: #ffffff;
   /* background-color: #e9e9e9; */
@@ -42,17 +43,29 @@ body {
 .blok-vjezbe {
   display: flex;
   justify-content: space-around;
+  padding: 3rem;
 }
 
 .blok-vjezbe__dani {
-  background-color: blue;
+  text-align: center;
+}
+
+.blok-vjezbe__dani #trenutni-dan {
+  padding-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.blok-vjezbe__dani #container-vjezbe > ul > li {
+  list-style-type: none;
+  padding: 0.5rem 0 0.5rem 0;
 }
 
 .blok-vjezbe__gumbi {
-  background-color: red;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .blok-vjezbe__gumbi > a {
@@ -136,7 +149,7 @@ table tr td {
 }
 
 /* GUMB */
-.modal .btn {
+.btn {
   width: 12rem;
   height: 2.5rem;
   border: 1px solid #b1aeae;
@@ -145,7 +158,7 @@ table tr td {
   transition: box-shadow 0.25s ease;
 }
 
-.modal .btn:hover {
+.btn:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   border: #32a8a8 1px solid;
 }

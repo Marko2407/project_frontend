@@ -5,37 +5,42 @@ const form = document.getElementById('search');
 const searchInput = form.elements['search'];
 
 async function getAll() {
-  const workouts = await queryFetch(`
-    query {
-        getTodayWorkouts {
-    id
+  const workouts = await queryFetch(
+    `
+    query GetWorkoutForSelectedWeek($weeklyOffset: Int) {
+    getWorkoutForSelectedWeek(weeklyOffset: $weeklyOffset) {
     day
-    title
-    description
-    dateCreated
-    series
-    reps
+    workouts {
+      id
+      day
+      title
+      description
+      dateCreated
+      series
+      reps
+    }
   }
-        }
-    `);
-  let list = workouts.data.getTodayWorkouts;
-  let workoutListCurrentDay = [];
+}
+    `,
+    { weeklyOffset: 0 }
+  );
+  let list = workouts.data.getWorkoutForSelectedWeek;
   if (list != null) {
-    let workoutNames = list.map(function (workoutName) {
-      return ` ${workoutName.title}`;
+    list.forEach((day) => {
+      console.log(day.length);
+      document.getElementById('row').innerHTML = `
+     <div class="blok">
+           
+      ${generateListItems(day)}
+
+                 
+     </div>
+  `;
     });
-    workoutListCurrentDay.push(list[0].day, workoutNames);
 
-    console.log(workoutListCurrentDay);
+    // -----------------------------------------
 
-    console.log(workouts.data.getTodayWorkouts);
-
-    workouts.data.getTodayWorkouts.forEach((data) => {
-      // console.log(data);
-      let element = document.createElement('div');
-      element.innerText = data.title;
-      workoutList.append(element);
-    });
+    // -----------------------------------------
   } else {
     console.log('Empty list');
   }
@@ -61,8 +66,8 @@ form.addEventListener('submit', async (e) => {
 function getWorkoutBySearch(searchInput) {
   return queryFetch(
     `
-         query GetWorkoutBySearchInput($title: String) {
-             getWorkoutBySearchInput(title: $title) {
+         query GetWorkoutBySearchInput($searchInput: String) {
+             getWorkoutBySearchInput(searchInput: $searchInput) {
                id
                title
                description
@@ -71,7 +76,7 @@ function getWorkoutBySearch(searchInput) {
              }
            }
          `,
-    { title: searchInput }
+    { searchInput: searchInput }
   ).then((res) => {
     return res.data;
   });
@@ -86,4 +91,40 @@ function queryFetch(query, variables) {
       variables: variables,
     }),
   }).then((res) => res.json());
+}
+
+// BLOKOVI S VJEŽBAMA
+const blokVjezbi = document.getElementById('row');
+let items = '';
+
+function generateListItems(argument) {
+  argument.workouts.forEach((vjezba) => {
+    items += `
+
+    <table>
+     <tr>
+              <th>Vježba:</th>
+              <th>Serije:</th>
+              <th>Ponavljanja:</th>
+              <th>Opis:</th>
+            </tr>
+              <tr>
+              <td>
+                ${vjezba.title}
+              </td>
+              <td>
+                ${vjezba.series}
+              </td>
+              <td>
+                ${vjezba.reps}
+              </td>
+              <td>
+                ${vjezba.description}
+              </td>
+            </tr>
+                   </table>
+  
+      `;
+  });
+  return items;
 }
