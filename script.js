@@ -1,5 +1,6 @@
 const workoutList = document.getElementById('workout-list');
 const workoutTitle = document.getElementById('workoutNames');
+let items = '';
 
 const form = document.getElementById('search');
 const searchInput = form.elements['search'];
@@ -24,25 +25,48 @@ async function getAll() {
     `,
     { weeklyOffset: 0 }
   );
+ 
   let list = workouts.data.getWorkoutForSelectedWeek;
-  if (list != null) {
+  if (list != 0) {
+    console.log(list)
     list.forEach((day) => {
-      console.log(day.length);
-      document.getElementById('row').innerHTML = `
-     <div class="blok">
-           
-      ${generateListItems(day)}
+const node = document.createElement('div')   
+if(day.workouts.length != 0){
+ 
+node.innerHTML =  `
+    <div class="blok">
+    <h3> ${day.day}</h3>
+    <table>
+    <tr>
+             <th>Vježba:</th>
+             <th>Serije:</th>
+             <th>Ponavljanja:</th>
+             <th>Opis:</th>
+           </tr>
+     ${generateListItems(day)}
+     </table>    
+    </div>
+ `;
 
-                 
-     </div>
-  `;
-    });
 
-    // -----------------------------------------
+}else{
+  node.innerHTML = `
+  <div class="blok">
+  <h3> ${day.day}</h3>
+  <p>No workouts available</p>
+  </div>
+`;
+}
+document.getElementById('row').appendChild(node)
 
-    // -----------------------------------------
+});
   } else {
     console.log('Empty list');
+    document.getElementById('row').innerHTML = `
+    <div class="blok">
+    <h1>No workouts available</h1>
+    </div>
+  `;
   }
 }
 
@@ -95,36 +119,26 @@ function queryFetch(query, variables) {
 
 // BLOKOVI S VJEŽBAMA
 const blokVjezbi = document.getElementById('row');
-let items = '';
 
 function generateListItems(argument) {
-  argument.workouts.forEach((vjezba) => {
+  items = ""
+  argument.workouts.forEach((workout) =>{
     items += `
-
-    <table>
-     <tr>
-              <th>Vježba:</th>
-              <th>Serije:</th>
-              <th>Ponavljanja:</th>
-              <th>Opis:</th>
-            </tr>
               <tr>
               <td>
-                ${vjezba.title}
+                ${workout.title}
               </td>
               <td>
-                ${vjezba.series}
+                ${workout.series}
               </td>
               <td>
-                ${vjezba.reps}
+                ${workout.reps}
               </td>
               <td>
-                ${vjezba.description}
+                ${workout.description}
               </td>
             </tr>
-                   </table>
-  
       `;
-  });
-  return items;
+})
+return items;
 }
