@@ -1,7 +1,10 @@
 const workoutList = document.getElementById('workout-list');
 const workoutTitle = document.getElementById('workoutNames');
+const userModalContainer = document.getElementById('user_modal_container');
+
 let list = [];
-async function getAll() {
+
+async function getTodayWorkouts() {
   const workouts = await queryFetch(`
     query {
         getTodayWorkouts {
@@ -43,8 +46,51 @@ async function getAll() {
     });
   } else {
     // UBACITI NEKI POPUP ILI SLICNO TIPA ALERT
-    console.log('Empty list');
+    console.log(EMPTY_DATA);
   }
+}
+
+async function getCurrentUser() {
+  const user = await queryFetch(`
+  query GetUser {
+    getUser {
+      id
+      firstName
+      lastName
+      weight
+      height
+    }
+  }
+    `);
+console.log(user)
+    if(user.data.getUser != null){
+      console.log("Postoji korisnik" + JSON.stringify(user.data.getUser))
+      return true
+    }else{
+      console.log(NO_CREATED_USER)
+      return false
+    }
+}
+
+async function createNewUser(user){
+  console.log(user);
+  await queryFetch(
+    ` mutation CreateUser($firstName: String, $lastName: String, $weight: Int, $height: Int) {
+      createUser(firstName: $firstName, lastName: $lastName, weight: $weight, height: $height) {
+        firstName
+        lastName
+        weight
+        height
+      }
+    }
+         `,
+    {
+      firstName: user.imeKorisnika,
+      lastName: user.prezimeKorisnika,
+      height:  user.visinaKorisnika,
+      weight: user.tezinaKorisnika,
+    }
+  );
 }
 
 async function createNewWorkout(workout) {
@@ -72,8 +118,15 @@ async function createNewWorkout(workout) {
   );
 }
 
-//First method to initiate when page open
-getAll();
+async function init(){
+  const isUserExist = await getCurrentUser();
+  if(isUserExist){
+     getTodayWorkouts();
+  }else{
+    userModalContainer.classList.add('show');
+    //Open modal for creating user 
+  }
+}
 
 function queryFetch(query, variables) {
   return fetch('http://localhost:4000/graphql/', {
@@ -86,12 +139,15 @@ function queryFetch(query, variables) {
   }).then((res) => res.json());
 }
 
-// MODAL
 
+// MODAL
 const openModal = document.getElementById('open');
-const modalContainer = document.getElementById('modal_container');
-const closeModal = document.getElementById('close');
-const addModal = document.getElementById('add');
+const workoutModalContainer = document.getElementById('modal_container');
+const closeWorkoutModal = document.getElementById('close');
+const closeUserModal = document.getElementById('close_user_modal');
+
+const addNewWorkoutsModal = document.getElementById('add');
+const addNewUserModal = document.getElementById('add_user');
 
 const vj1 = document.querySelector("input[name = 'vj1']");
 const vj2 = document.querySelector("input[name = 'vj2']");
@@ -109,15 +165,24 @@ const opisVj1 = document.querySelector("textarea[name = 'opisVj1']");
 const opisVj2 = document.querySelector("textarea[name = 'opisVj2']");
 const opisVj3 = document.querySelector("textarea[name = 'opisVj3']");
 
+const imeKorisnika = document.querySelector("input[name = 'ime_korisnika']");
+const prezimeKorisnika = document.querySelector("input[name = 'prezime_korisnika']");
+const visinaKorisnika = document.querySelector("input[name = 'visina_korisnika']");
+const tezinaKorisnika = document.querySelector("input[name = 'tezina_korisnika']");
+
 openModal.addEventListener('click', () => {
-  modalContainer.classList.add('show');
+  workoutModalContainer.classList.add('show');
 });
 
-closeModal.addEventListener('click', () => {
-  modalContainer.classList.remove('show');
+closeWorkoutModal.addEventListener('click', () => {
+  workoutModalContainer.classList.remove('show');
 });
 
-addModal.addEventListener('click', async (e) => {
+closeUserModal.addEventListener('click', () => {
+  userModalContainer.classList.remove('show');
+});
+
+addNewWorkoutsModal.addEventListener('click', async (e) => {
   e.preventDefault();
   const firstWorkout = [
     vj1.value,
@@ -149,8 +214,26 @@ addModal.addEventListener('click', async (e) => {
   }
   location.reload();
 });
-// PRIKAZ VJEZBI U TRENUTNOM DANU
 
+addNewUserModal.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const user = {
+   imeKorisnika: imeKorisnika.value,
+   prezimeKorisnika: prezimeKorisnika.value,
+   visinaKorisnika: parseInt(visinaKorisnika.value),
+   tezinaKorisnika: parseInt(tezinaKorisnika.value),
+  };
+ 
+    if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '' ) {
+     await createNewUser(user);
+    } else {
+      console.log('Please enter User info');
+    }
+
+  location.reload();
+  });
+
+// PRIKAZ VJEZBI U TRENUTNOM DANU
 function generateListItems(argument) {
   let items = '';
   for (let i = 0; i < argument.length; i++) {
@@ -158,3 +241,12 @@ function generateListItems(argument) {
   }
   return items;
 }
+
+//Na kreiranju stranice
+init();
+
+
+//Konstante 
+const NO_CREATED_USER = "Nema kreiranog korisnika"
+const CREATED_USER = "Postoji korisnik"
+const EMPTY_DATA = "Nema podataka"

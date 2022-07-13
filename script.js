@@ -5,7 +5,7 @@ let items = '';
 const form = document.getElementById('search');
 const searchInput = form.elements['search'];
 
-async function getAll() {
+async function getTodayWorkouts() {
   const workouts = await queryFetch(
     `
     query GetWorkoutForSelectedWeek($weeklyOffset: Int) {
@@ -71,7 +71,7 @@ document.getElementById('row').appendChild(node)
 }
 
 //First method to initiate when page open
-getAll();
+getTodayWorkouts();
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
