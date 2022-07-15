@@ -23,8 +23,8 @@ body {
 
 .blok {
   width: 95%;
-  min-height: 20%;
-  /* margin: 2rem 0 2rem 0; */
+  min-height: 15rem;
+  margin: 2rem 0 2rem 0;
   border-radius: 10px;
   background-color: #ffffff;
   /* background-color: #e9e9e9; */
@@ -32,13 +32,44 @@ body {
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
 
-/* .blok-podaci {
-  background-color: red;
+/* ---------- BLOK 1 PODACI ---------- */
+
+.blok-podaci {
+  display: flex;
+  justify-content: space-around;
+  padding: 3rem;
 }
 
+.blok-podaci__info {
+  text-align: center;
+}
+
+.blok-podaci__user-name {
+  padding-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.blok-podaci__info > ul > li {
+  list-style-type: none;
+  padding: 0.5rem 0 0.5rem 0;
+}
+
+.blok-podaci__gumbi {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/* ---------- BLOK 2 GRAFOVI ---------- */
+
+/*
 .blok-grafovi {
   background-color: blue;
 } */
+
+/* ---------- BLOK 3 VJEŽBE ---------- */
 
 .blok-vjezbe {
   display: flex;
@@ -145,7 +176,7 @@ table tr td {
 }
 
 .fa-close:hover {
-  color: #32a8a8;
+  color: #2d9bf0;
 }
 
 /* GUMB */
@@ -160,5 +191,78 @@ table tr td {
 
 .btn:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  border: #32a8a8 1px solid;
+  border: #2d9bf0 1px solid;
+}
+
+/* ---------------------------------------- STRANICA VJEŽBE ---------------------------------------- */
+
+.blok .blok-table table {
+  text-align: center;
+}
+
+.blok-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blok-table > table {
+  width: 60%;
+}
+
+.blok-table__title {
+  font-size: 1.5rem;
+}
+
+.blok-table > table > tbody > tr > td {
+  padding: 1.5rem 0 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+.blok-naslov {
+  text-align: center;
+  padding: 2rem 0 1rem 0;
+}
+
+.blok-naslov > h3 {
+  font-size: 2rem;
+  padding: 2rem 0 1.5rem 0;
+}
+
+.blok-naslov .line {
+  width: 60%;
+  display: inline-block;
+}
+
+.blok-naslov > p {
+  font-size: 1.2rem;
+}
+
+/* ---------- BLOK FORMA ---------- */
+.blok-form {
+  text-align: center;
+  width: 95%;
+}
+
+.blok-form > h1 {
+  display: inline-block;
+  font-size: 2.3rem;
+  padding: 2.1rem 0 2.1rem 0;
+  width: 30rem;
+}
+
+.blok-form > form > #search {
+  display: inline-block;
+  width: 20rem;
+  height: 1.6rem;
+  border: 1px solid #b1aeae;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.blok-form > form > #search::placeholder {
+  text-align: center;
+  font-size: 1.1rem;
 }

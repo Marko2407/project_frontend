@@ -62,17 +62,35 @@ async function getCurrentUser() {
     }
   }
     `);
-console.log(user)
-    if(user.data.getUser != null){
-      console.log("Postoji korisnik" + JSON.stringify(user.data.getUser))
-      return true
-    }else{
-      console.log(NO_CREATED_USER)
-      return false
-    }
+  console.log(user);
+  if (user.data.getUser != null) {
+    console.log('Postoji korisnik' + JSON.stringify(user.data.getUser));
+
+    let userBlok = document.getElementById('blok-podaci');
+    userBlok.innerHTML = `
+<div class="blok-podaci__info">
+  <ul>
+    <li><h3 class="blok-podaci__user-name">${user.data.getUser.lastName} ${user.data.getUser.firstName}</h3></li>
+    <li>${user.data.getUser.height} cm</li>
+    <li>${user.data.getUser.weight} kg</li>
+  </ul> 
+</div>
+<div class="blok-podaci__gumbi">
+  <button class="btn" id="user_edit">Promijeni</button>
+  <br />
+  <button class="btn" id="user_delete">Izbriši</button>
+</div>
+
+`;
+
+    return true;
+  } else {
+    console.log(NO_CREATED_USER);
+    return false;
+  }
 }
 
-async function createNewUser(user){
+async function createNewUser(user) {
   console.log(user);
   await queryFetch(
     ` mutation CreateUser($firstName: String, $lastName: String, $weight: Int, $height: Int) {
@@ -87,7 +105,7 @@ async function createNewUser(user){
     {
       firstName: user.imeKorisnika,
       lastName: user.prezimeKorisnika,
-      height:  user.visinaKorisnika,
+      height: user.visinaKorisnika,
       weight: user.tezinaKorisnika,
     }
   );
@@ -118,13 +136,13 @@ async function createNewWorkout(workout) {
   );
 }
 
-async function init(){
+async function init() {
   const isUserExist = await getCurrentUser();
-  if(isUserExist){
-     getTodayWorkouts();
-  }else{
+  if (isUserExist) {
+    getTodayWorkouts();
+  } else {
     userModalContainer.classList.add('show');
-    //Open modal for creating user 
+    //Open modal for creating user
   }
 }
 
@@ -138,7 +156,6 @@ function queryFetch(query, variables) {
     }),
   }).then((res) => res.json());
 }
-
 
 // MODAL
 const openModal = document.getElementById('open');
@@ -166,9 +183,15 @@ const opisVj2 = document.querySelector("textarea[name = 'opisVj2']");
 const opisVj3 = document.querySelector("textarea[name = 'opisVj3']");
 
 const imeKorisnika = document.querySelector("input[name = 'ime_korisnika']");
-const prezimeKorisnika = document.querySelector("input[name = 'prezime_korisnika']");
-const visinaKorisnika = document.querySelector("input[name = 'visina_korisnika']");
-const tezinaKorisnika = document.querySelector("input[name = 'tezina_korisnika']");
+const prezimeKorisnika = document.querySelector(
+  "input[name = 'prezime_korisnika']"
+);
+const visinaKorisnika = document.querySelector(
+  "input[name = 'visina_korisnika']"
+);
+const tezinaKorisnika = document.querySelector(
+  "input[name = 'tezina_korisnika']"
+);
 
 openModal.addEventListener('click', () => {
   workoutModalContainer.classList.add('show');
@@ -218,20 +241,20 @@ addNewWorkoutsModal.addEventListener('click', async (e) => {
 addNewUserModal.addEventListener('click', async (e) => {
   e.preventDefault();
   const user = {
-   imeKorisnika: imeKorisnika.value,
-   prezimeKorisnika: prezimeKorisnika.value,
-   visinaKorisnika: parseInt(visinaKorisnika.value),
-   tezinaKorisnika: parseInt(tezinaKorisnika.value),
+    imeKorisnika: imeKorisnika.value,
+    prezimeKorisnika: prezimeKorisnika.value,
+    visinaKorisnika: parseInt(visinaKorisnika.value),
+    tezinaKorisnika: parseInt(tezinaKorisnika.value),
   };
- 
-    if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '' ) {
-     await createNewUser(user);
-    } else {
-      console.log('Please enter User info');
-    }
+
+  if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '') {
+    await createNewUser(user);
+  } else {
+    console.log('Please enter User info');
+  }
 
   location.reload();
-  });
+});
 
 // PRIKAZ VJEZBI U TRENUTNOM DANU
 function generateListItems(argument) {
@@ -245,8 +268,7 @@ function generateListItems(argument) {
 //Na kreiranju stranice
 init();
 
-
-//Konstante 
-const NO_CREATED_USER = "Nema kreiranog korisnika"
-const CREATED_USER = "Postoji korisnik"
-const EMPTY_DATA = "Nema podataka"
+//Konstante
+const NO_CREATED_USER = 'Nema kreiranog korisnika';
+const CREATED_USER = 'Postoji korisnik';
+const EMPTY_DATA = 'Nema podataka';

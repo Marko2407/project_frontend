@@ -25,47 +25,49 @@ async function getTodayWorkouts() {
     `,
     { weeklyOffset: 0 }
   );
- 
+
   let list = workouts.data.getWorkoutForSelectedWeek;
   if (list != 0) {
-    console.log(list)
+    console.log(list);
     list.forEach((day) => {
-const node = document.createElement('div')   
-if(day.workouts.length != 0){
- 
-node.innerHTML =  `
-    <div class="blok">
-    <h3> ${day.day}</h3>
-    <table>
-    <tr>
-             <th>Vježba:</th>
-             <th>Serije:</th>
-             <th>Ponavljanja:</th>
-             <th>Opis:</th>
-           </tr>
-     ${generateListItems(day)}
-     </table>    
+      const node = document.createElement('div');
+      node.classList.add('blok');
+      if (day.workouts.length != 0) {
+        node.innerHTML = `
+    <div class="blok-naslov">
+      <h3 class="blok-naslov">${day.day}</h3>
+      <hr class="line">
+    </div>
+    <div class="blok-table">
+      <table>
+        <tr class="blok-table__title">
+          <th>Vježba:</th>
+          <th>Serije:</th>
+          <th>Ponavljanja:</th>
+          <th>Opis:</th>
+        </tr>
+        <tr>
+          <td>${generateListItems(day)}</td>
+        </tr>
+      </table>    
     </div>
  `;
-
-
-}else{
-  node.innerHTML = `
-  <div class="blok">
-  <h3> ${day.day}</h3>
-  <p>No workouts available</p>
+      } else {
+        node.innerHTML = `
+   <div class="blok-naslov">
+    <h3 class="blok-naslov">${day.day}</h3>
+    <p>No workouts available</p>
   </div>
 `;
-}
-document.getElementById('row').appendChild(node)
-
-});
+      }
+      document.getElementById('row').appendChild(node);
+    });
   } else {
     console.log('Empty list');
     document.getElementById('row').innerHTML = `
-    <div class="blok">
+   
     <h1>No workouts available</h1>
-    </div>
+    
   `;
   }
 }
@@ -121,8 +123,8 @@ function queryFetch(query, variables) {
 const blokVjezbi = document.getElementById('row');
 
 function generateListItems(argument) {
-  items = ""
-  argument.workouts.forEach((workout) =>{
+  items = '';
+  argument.workouts.forEach((workout) => {
     items += `
               <tr>
               <td>
@@ -139,6 +141,6 @@ function generateListItems(argument) {
               </td>
             </tr>
       `;
-})
-return items;
+  });
+  return items;
 }
