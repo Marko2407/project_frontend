@@ -47,7 +47,7 @@ async function getTodayWorkouts() {
           <th>Opis:</th>
         </tr>
         <tr>
-          <td>${generateListItems(day)}</td>
+          ${generateListItems(day)}
         </tr>
       </table>    
     </div>
