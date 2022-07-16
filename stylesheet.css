@@ -266,3 +266,27 @@ table tr td {
   text-align: center;
   font-size: 1.1rem;
 }
+
+/* ---------- NAVIGACIJA ---------- */
+
+.layout-blok {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-column {
+  background-color: #2a2c30;
+  width: 5rem;
+  height: 90vh;
+  margin: 2rem;
+  border-radius: 10px;
+  box-shadow: rgb(17 17 26 / 5%) 0px 1px 0px, rgb(17 17 26 / 10%) 0px 0px 8px;
+
+  /* FLEXBOX */
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-column a {
+  color: #fff;
+}

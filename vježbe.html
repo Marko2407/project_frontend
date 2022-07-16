@@ -12,16 +12,28 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="row" id="row">
-      <div class="blok-form">
-        <h1>Sve vježbe:</h1>
-        <form action="?" method="post" id="search">
-          <input type="text" id="search" name="search" placeholder="Pretraži" />
-        </form>
+    <div class="layout-blok">
+      <div class="nav-column">
+        <div>
+          <a href="index.html">Početna</a>
+        </div>
+        <div><a href="vježbe.html">Vježbe</a></div>
+        <div><a href="#">Grafovi</a></div>
+      </div>
+      <div class="row" id="row">
+        <div class="blok-form">
+          <h1>Sve vježbe:</h1>
+          <form action="?" method="post" id="search">
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Pretraži"
+            />
+          </form>
+        </div>
       </div>
     </div>
     <div id="workout-list"></div>
-    <br />
-    <a href="index.html"><button class="btn">Početna</button></a>
   </body>
 </html>
