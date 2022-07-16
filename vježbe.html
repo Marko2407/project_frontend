@@ -8,6 +8,12 @@
     <!-- CSS -->
     <link rel="stylesheet" href="stylesheet.css" />
 
+    <!--FA ICON -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
     <title>Vježbe</title>
     <script src="script.js" defer></script>
   </head>
@@ -15,14 +21,20 @@
     <div class="layout-blok">
       <div class="nav-column">
         <div>
-          <a href="index.html">Početna</a>
+          <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
         </div>
-        <div><a href="vježbe.html">Vježbe</a></div>
-        <div><a href="#">Grafovi</a></div>
+        <div>
+          <a href="vježbe.html"
+            ><i class="fa fa-child" aria-hidden="true"></i
+          ></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+        </div>
       </div>
       <div class="row" id="row">
         <div class="blok-form">
-          <h1>Sve vježbe:</h1>
+          <h1 class="blok-title">Sve vježbe</h1>
           <form action="?" method="post" id="search">
             <input
               type="text"

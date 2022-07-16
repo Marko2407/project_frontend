@@ -244,7 +244,7 @@ table tr td {
   width: 95%;
 }
 
-.blok-form > h1 {
+.blok-title {
   display: inline-block;
   font-size: 2.3rem;
   padding: 2.1rem 0 2.1rem 0;
@@ -275,6 +275,7 @@ table tr td {
 }
 
 .nav-column {
+  position: fixed;
   background-color: #2a2c30;
   width: 5rem;
   height: 90vh;
@@ -287,6 +288,23 @@ table tr td {
   flex-direction: column;
 }
 
+.nav-column > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  padding-top: 1.3rem;
+}
+
 .nav-column a {
   color: #fff;
+}
+
+/* ---------- FONT AWESOME ---------- */
+
+i.fa.fa-home:before,
+i.fa.fa-child:before,
+i.fa.fa-bar-chart:before {
+  color: #fff;
+  font-size: 1.6rem;
 }
