@@ -2,6 +2,14 @@ const workoutList = document.getElementById('workout-list');
 const workoutTitle = document.getElementById('workoutNames');
 const userModalContainer = document.getElementById('user_modal_container');
 
+let user = {
+  idKorisnika: null,
+  imeKorisnika: null,
+  prezimeKorisnika: null,
+  visinaKorisnika: null,
+  tezinaKorisnika: null,
+};
+
 let list = [];
 
 async function getTodayWorkouts() {
@@ -51,7 +59,7 @@ async function getTodayWorkouts() {
 }
 
 async function getCurrentUser() {
-  const user = await queryFetch(`
+  const userQuery = await queryFetch(`
   query GetUser {
     getUser {
       id
@@ -62,17 +70,24 @@ async function getCurrentUser() {
     }
   }
     `);
-  console.log(user);
-  if (user.data.getUser != null) {
-    console.log('Postoji korisnik' + JSON.stringify(user.data.getUser));
+  console.log(userQuery);
+  if (userQuery.data.getUser != null) {
+
+  user.idKorisnika = userQuery.data.getUser.id
+  user.imeKorisnika = userQuery.data.getUser.firstName
+  user.prezimeKorisnika = userQuery.data.getUser.lastName
+  user.visinaKorisnika = parseInt(userQuery.data.getUser.height)
+  user.tezinaKorisnika = parseInt(userQuery.data.getUser.weight)
+
+    console.log('Postoji korisnik' + JSON.stringify(user));
 
     let userBlok = document.getElementById('blok-podaci');
     userBlok.innerHTML = `
 <div class="blok-podaci__info">
   <ul>
-    <li><h3 class="blok-podaci__user-name">${user.data.getUser.lastName} ${user.data.getUser.firstName}</h3></li>
-    <li>${user.data.getUser.height} cm</li>
-    <li>${user.data.getUser.weight} kg</li>
+    <li><h3 class="blok-podaci__user-name">${user.prezimeKorisnika} ${ user.imeKorisnika}</h3></li>
+    <li>${user.visinaKorisnika} cm</li>
+    <li>${user.tezinaKorisnika} kg</li>
   </ul> 
 </div>
 <div class="blok-podaci__gumbi">
@@ -82,7 +97,21 @@ async function getCurrentUser() {
 </div>
 
 `;
+document.getElementById('user_edit').addEventListener('click', async (e) => {
+  imeKorisnika.value = user.imeKorisnika
+  prezimeKorisnika.value = user.prezimeKorisnika
+  visinaKorisnika.value = user.visinaKorisnika
+  tezinaKorisnika.value = user.tezinaKorisnika
 
+  userModalContainer.classList.add('show');
+
+})
+
+
+document.getElementById('user_delete').addEventListener('click', async (e) => {
+  await deleteUser()
+  location.reload()
+  })
     return true;
   } else {
     console.log(NO_CREATED_USER);
@@ -111,6 +140,42 @@ async function createNewUser(user) {
   );
 }
 
+async function updateUser(user) {
+  console.log(user);
+  await queryFetch(
+    ` mutation UpdateUser($updateUserId: ID, $firstName: String, $lastName: String, $weight: Int, $height: Int) {
+      updateUser(id: $updateUserId, firstName: $firstName, lastName: $lastName, weight: $weight, height: $height) {
+        id
+        firstName
+        lastName
+        weight
+        height
+      }
+    }
+         `,
+    {
+      updateUserId: user.idKorisnika,
+      firstName: user.imeKorisnika,
+      lastName: user.prezimeKorisnika,
+      height: user.visinaKorisnika,
+      weight: user.tezinaKorisnika,
+    }
+  );
+}
+
+async function deleteUser() {
+  console.log(user);
+  await queryFetch(
+    ` mutation DeleteUser($deleteUserId: ID) {
+      deleteUser(id: $deleteUserId)
+    }
+         `,
+    {
+      deleteUserId: user.idKorisnika,
+    }
+  );
+}
+
 async function createNewWorkout(workout) {
   console.log(workout);
   await queryFetch(
@@ -135,6 +200,7 @@ async function createNewWorkout(workout) {
     }
   );
 }
+
 
 async function init() {
   const isUserExist = await getCurrentUser();
@@ -240,20 +306,22 @@ addNewWorkoutsModal.addEventListener('click', async (e) => {
 
 addNewUserModal.addEventListener('click', async (e) => {
   e.preventDefault();
-  const user = {
-    imeKorisnika: imeKorisnika.value,
-    prezimeKorisnika: prezimeKorisnika.value,
-    visinaKorisnika: parseInt(visinaKorisnika.value),
-    tezinaKorisnika: parseInt(tezinaKorisnika.value),
-  };
 
+  user.imeKorisnika = imeKorisnika.value
+  user.prezimeKorisnika = prezimeKorisnika.value
+  user.visinaKorisnika = parseInt(visinaKorisnika.value)
+  user.tezinaKorisnika = parseInt(tezinaKorisnika.value)
+
+  if(user.idKorisnika == null){
   if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '') {
     await createNewUser(user);
   } else {
     console.log('Please enter User info');
-  }
-
-  location.reload();
+  }    
+}else{
+  await updateUser(user)
+}
+location.reload()
 });
 
 // PRIKAZ VJEZBI U TRENUTNOM DANU
