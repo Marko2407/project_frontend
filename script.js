@@ -33,9 +33,11 @@ async function getTodayWorkouts() {
       const node = document.createElement('div');
       node.classList.add('blok');
       if (day.workouts.length != 0) {
+        let dateCreated = day.workouts[0].dateCreated;
         node.innerHTML = `
     <div class="blok-naslov">
       <h3 class="blok-naslov">${day.day}</h3>
+      <h4>${dateCreated}</h4>
       <hr class="line">
     </div>
     <div class="blok-table">

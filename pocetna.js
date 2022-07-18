@@ -72,12 +72,11 @@ async function getCurrentUser() {
     `);
   console.log(userQuery);
   if (userQuery.data.getUser != null) {
-
-  user.idKorisnika = userQuery.data.getUser.id
-  user.imeKorisnika = userQuery.data.getUser.firstName
-  user.prezimeKorisnika = userQuery.data.getUser.lastName
-  user.visinaKorisnika = parseInt(userQuery.data.getUser.height)
-  user.tezinaKorisnika = parseInt(userQuery.data.getUser.weight)
+    user.idKorisnika = userQuery.data.getUser.id;
+    user.imeKorisnika = userQuery.data.getUser.firstName;
+    user.prezimeKorisnika = userQuery.data.getUser.lastName;
+    user.visinaKorisnika = parseInt(userQuery.data.getUser.height);
+    user.tezinaKorisnika = parseInt(userQuery.data.getUser.weight);
 
     console.log('Postoji korisnik' + JSON.stringify(user));
 
@@ -85,7 +84,7 @@ async function getCurrentUser() {
     userBlok.innerHTML = `
 <div class="blok-podaci__info">
   <ul>
-    <li><h3 class="blok-podaci__user-name">${user.prezimeKorisnika} ${ user.imeKorisnika}</h3></li>
+    <li><h3 class="blok-podaci__user-name">${user.prezimeKorisnika} ${user.imeKorisnika}</h3></li>
     <li>${user.visinaKorisnika} cm</li>
     <li>${user.tezinaKorisnika} kg</li>
   </ul> 
@@ -97,21 +96,23 @@ async function getCurrentUser() {
 </div>
 
 `;
-document.getElementById('user_edit').addEventListener('click', async (e) => {
-  imeKorisnika.value = user.imeKorisnika
-  prezimeKorisnika.value = user.prezimeKorisnika
-  visinaKorisnika.value = user.visinaKorisnika
-  tezinaKorisnika.value = user.tezinaKorisnika
+    document
+      .getElementById('user_edit')
+      .addEventListener('click', async (e) => {
+        imeKorisnika.value = user.imeKorisnika;
+        prezimeKorisnika.value = user.prezimeKorisnika;
+        visinaKorisnika.value = user.visinaKorisnika;
+        tezinaKorisnika.value = user.tezinaKorisnika;
 
-  userModalContainer.classList.add('show');
+        userModalContainer.classList.add('show');
+      });
 
-})
-
-
-document.getElementById('user_delete').addEventListener('click', async (e) => {
-  await deleteUser()
-  location.reload()
-  })
+    document
+      .getElementById('user_delete')
+      .addEventListener('click', async (e) => {
+        await deleteUser();
+        location.reload();
+      });
     return true;
   } else {
     console.log(NO_CREATED_USER);
@@ -200,7 +201,6 @@ async function createNewWorkout(workout) {
     }
   );
 }
-
 
 async function init() {
   const isUserExist = await getCurrentUser();
@@ -307,21 +307,21 @@ addNewWorkoutsModal.addEventListener('click', async (e) => {
 addNewUserModal.addEventListener('click', async (e) => {
   e.preventDefault();
 
-  user.imeKorisnika = imeKorisnika.value
-  user.prezimeKorisnika = prezimeKorisnika.value
-  user.visinaKorisnika = parseInt(visinaKorisnika.value)
-  user.tezinaKorisnika = parseInt(tezinaKorisnika.value)
+  user.imeKorisnika = imeKorisnika.value;
+  user.prezimeKorisnika = prezimeKorisnika.value;
+  user.visinaKorisnika = parseInt(visinaKorisnika.value);
+  user.tezinaKorisnika = parseInt(tezinaKorisnika.value);
 
-  if(user.idKorisnika == null){
-  if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '') {
-    await createNewUser(user);
+  if (user.idKorisnika == null) {
+    if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '') {
+      await createNewUser(user);
+    } else {
+      console.log('Please enter User info');
+    }
   } else {
-    console.log('Please enter User info');
-  }    
-}else{
-  await updateUser(user)
-}
-location.reload()
+    await updateUser(user);
+  }
+  location.reload();
 });
 
 // PRIKAZ VJEZBI U TRENUTNOM DANU
