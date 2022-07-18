@@ -267,6 +267,17 @@ table tr td {
   font-size: 1.1rem;
 }
 
+.blok-icon {
+  display: inline-block;
+  position: absolute;
+  right: 16.5%;
+}
+
+.blok-icon > i {
+  font-size: 2rem;
+  padding: 7px;
+}
+
 /* ---------- NAVIGACIJA ---------- */
 
 .layout-blok {

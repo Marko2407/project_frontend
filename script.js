@@ -94,12 +94,18 @@ function getWorkoutBySearch(searchInput) {
     `
          query GetWorkoutBySearchInput($searchInput: String) {
              getWorkoutBySearchInput(searchInput: $searchInput) {
-               id
-               title
-               description
-               dateCreated
-               day
-             }
+    day
+    date
+    workout {
+      id
+      day
+      title
+      description
+      dateCreated
+      series
+      reps
+    }
+  }
            }
          `,
     { searchInput: searchInput }
