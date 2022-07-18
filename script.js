@@ -5,7 +5,8 @@ let items = '';
 const form = document.getElementById('search');
 const searchInput = form.elements['search'];
 
-async function getTodayWorkouts() {
+async function getTodayWorkouts(weeklyOffsetNumber) {
+  document.getElementById('blok-proba').innerHTML = ``;
   const workouts = await queryFetch(
     `
     query GetWorkoutForSelectedWeek($weeklyOffset: Int) {
@@ -23,7 +24,7 @@ async function getTodayWorkouts() {
   }
 }
     `,
-    { weeklyOffset: 0 }
+    { weeklyOffset: weeklyOffsetNumber }
   );
 
   let list = workouts.data.getWorkoutForSelectedWeek;
@@ -62,20 +63,31 @@ async function getTodayWorkouts() {
   </div>
 `;
       }
-      document.getElementById('row').appendChild(node);
+      document.getElementById('blok-proba').appendChild(node);
     });
   } else {
     console.log('Empty list');
-    document.getElementById('row').innerHTML = `
-   
-    <h1>No workouts available</h1>
+    document.getElementById('blok-proba').innerHTML = `
+   <br>
+   <br>
+   <br>
+   <h1>No workouts available</h1>
     
   `;
   }
 }
 
 //First method to initiate when page open
-getTodayWorkouts();
+getTodayWorkouts(0);
+
+const leftArrow = document.getElementById('left');
+let number = 0;
+
+leftArrow.addEventListener('click', async (e) => {
+  e.preventDefault();
+  number++;
+  getTodayWorkouts(number);
+});
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
