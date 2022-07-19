@@ -92,8 +92,10 @@ leftArrow.addEventListener('click', async (e) => {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
-  console.log(getWorkoutBySearchInput.getWorkoutBySearchInput)
-  renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput)
+  if(getWorkoutBySearchInput != null){
+    console.log(getWorkoutBySearchInput.getWorkoutBySearchInput)
+    renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput)
+  }
 });
 
 function renderSearchResultview(searchResult){
@@ -168,6 +170,7 @@ function generateSearchListItems(argument) {
 
 
 function getWorkoutBySearch(searchInput) {
+  if(searchInput != ""){
   return queryFetch(
     `
          query GetWorkoutBySearchInput($searchInput: String) {
@@ -190,6 +193,10 @@ function getWorkoutBySearch(searchInput) {
   ).then((res) => {
     return res.data;
   });
+}else{
+  getTodayWorkouts(0)
+  console.log("PRAZNO")
+}
 }
 
 function queryFetch(query, variables) {
