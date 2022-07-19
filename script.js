@@ -4,11 +4,9 @@ let items = '';
 
 const form = document.getElementById('search');
 const searchInput = form.elements['search'];
-
+const blokIcon = document.getElementById('blok-icon');
 function subtractWeeks(numOfWeeks, date = new Date()) {
-  let d = date.setDate(date.getDate() - numOfWeeks * 7);
-  console.log(d)
-  return d
+  return date.setDate(date.getDate() - numOfWeeks * 7);
 }
 
 function multiplyWeeks(numOfWeeks, date) {
@@ -19,13 +17,11 @@ const removeTime = (date) => {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
-
 async function getTodayWorkouts(weeklyOffset) {
-   date =  subtractWeeks(weeklyOffset)
-  console.log(date)
+  date = subtractWeeks(weeklyOffset);
   document.getElementById('blok-proba').innerHTML = ``;
   const workouts = await queryFetch(
-      `query GetWorkoutForSelectedWeek($weeklyOffset: String) {
+    `query GetWorkoutForSelectedWeek($weeklyOffset: String) {
         getWorkoutForSelectedWeek(date: $weeklyOffset) {
           day
           workouts {
@@ -43,16 +39,23 @@ async function getTodayWorkouts(weeklyOffset) {
     { weeklyOffset: date.toString() }
   );
 
-  console.log(workouts)
+  console.log(workouts);
   let list = workouts.data.getWorkoutForSelectedWeek;
   if (list != 0) {
-    console.log(list);
     list.forEach((day) => {
       const node = document.createElement('div');
       node.classList.add('blok');
       if (day.workouts.length != 0) {
-        let dateCreated = removeTime(new Date(parseInt(day.workouts[0].dateCreated)));
-        let date = dateCreated.getDate() + "." + dateCreated.getMonth() + "." + dateCreated.getFullYear() + "."
+        let dateCreated = removeTime(
+          new Date(parseInt(day.workouts[0].dateCreated))
+        );
+        let date =
+          dateCreated.getDate() +
+          '.' +
+          dateCreated.getMonth() +
+          '.' +
+          dateCreated.getFullYear() +
+          '.';
         node.innerHTML = `
         <div class="blok-naslov">
           <h3 class="blok-naslov">${day.day}</h3>
@@ -73,8 +76,8 @@ async function getTodayWorkouts(weeklyOffset) {
           </table>    
         </div>
     `;
-  } else {
-    node.innerHTML = `
+      } else {
+        node.innerHTML = `
       <div class="blok-naslov">
         <h3 class="blok-naslov">${day.day}</h3>
         <p>No workouts available</p>
@@ -106,7 +109,6 @@ leftArrow.addEventListener('click', async (e) => {
   getTodayWorkouts(number);
 });
 
-
 const rightArrow = document.getElementById('right');
 
 rightArrow.addEventListener('click', async (e) => {
@@ -118,25 +120,32 @@ rightArrow.addEventListener('click', async (e) => {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
-  if(getWorkoutBySearchInput != null){
-    console.log(getWorkoutBySearchInput.getWorkoutBySearchInput)
-    renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput)
+  if (getWorkoutBySearchInput != null) {
+    renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput);
   }
 });
 
-function renderSearchResultview(searchResult){
-  //isprazni div 
+function renderSearchResultview(searchResult) {
+  //isprazni div
   document.getElementById('blok-proba').innerHTML = ``;
-  if(searchResult !=0){
+  if (searchResult != 0) {
     searchResult.forEach((day) => {
       //kreiraj onoliko node koliko ima dana
       const node = document.createElement('div');
       node.classList.add('blok');
-        //Napisi koji je to dan i datum
+      let dateCreated = removeTime(new Date(parseInt(day.date)));
+      let date =
+        dateCreated.getDate() +
+        '.' +
+        dateCreated.getMonth() +
+        '.' +
+        dateCreated.getFullYear() +
+        '.';
+      //Napisi koji je to dan i datum
       node.innerHTML = `
       <div class="blok-naslov">
          <h3 class="blok-naslov">${day.day}</h3>
-        <h4>${day.date}</h4>
+        <h4>${date}</h4>
         <hr class="line">
       </div>
       <div class="blok-table">
@@ -153,10 +162,10 @@ function renderSearchResultview(searchResult){
         </table>    
       </div>
     `;
-    document.getElementById('blok-proba').appendChild(node);
-    //posalji listu workouta gdje se onda koja ce bit array() 
-  })
-  }else{
+      document.getElementById('blok-proba').appendChild(node);
+      //posalji listu workouta gdje se onda koja ce bit array()
+    });
+  } else {
     //nema rezultata
     console.log('Empty list');
     document.getElementById('blok-proba').innerHTML = `
@@ -171,7 +180,7 @@ function renderSearchResultview(searchResult){
 function generateSearchListItems(argument) {
   items = '';
   argument.forEach((workout) => {
-  items += `
+    items += `
             <tr>
             <td>
               ${workout.title}
@@ -191,9 +200,10 @@ function generateSearchListItems(argument) {
   return items;
 }
 
-
 function getWorkoutBySearch(searchInput) {
-  if(searchInput != ""){
+  if (searchInput != '') {
+    blokIcon.classList.add('hide-blok');
+    blokIcon.classList.remove('show-blok');
     return queryFetch(
       `
         query GetWorkoutBySearchInput($searchInput: String) {
@@ -216,9 +226,11 @@ function getWorkoutBySearch(searchInput) {
     ).then((res) => {
       return res.data;
     });
-  }else{
-  getTodayWorkouts(number)
-  console.log("PRAZNO")
+  } else {
+    blokIcon.classList.remove('hide-blok');
+    blokIcon.classList.add('show-blok');
+    getTodayWorkouts(number);
+    console.log('PRAZNO');
   }
 }
 

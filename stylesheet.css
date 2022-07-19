@@ -278,6 +278,16 @@ table tr td {
   padding: 7px;
 }
 
+.hide-blok {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.show-blok {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* ---------- NAVIGACIJA ---------- */
 
 .layout-blok {
