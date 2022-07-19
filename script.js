@@ -5,27 +5,45 @@ let items = '';
 const form = document.getElementById('search');
 const searchInput = form.elements['search'];
 
-async function getTodayWorkouts(weeklyOffsetNumber) {
+function subtractWeeks(numOfWeeks, date = new Date()) {
+  let d = date.setDate(date.getDate() - numOfWeeks * 7);
+  console.log(d)
+  return d
+}
+
+function multiplyWeeks(numOfWeeks, date) {
+  return date.setDate(date.getDate() + numOfWeeks * 7);
+}
+
+const removeTime = (date) => {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};
+
+
+async function getTodayWorkouts(weeklyOffset) {
+   date =  subtractWeeks(weeklyOffset)
+  console.log(date)
   document.getElementById('blok-proba').innerHTML = ``;
   const workouts = await queryFetch(
-      `query GetWorkoutForSelectedWeek($weeklyOffset: Int) {
-        getWorkoutForSelectedWeek(weeklyOffset: $weeklyOffset) {
-        day
-        workouts {
-          id
+      `query GetWorkoutForSelectedWeek($weeklyOffset: String) {
+        getWorkoutForSelectedWeek(date: $weeklyOffset) {
           day
-          title
-          description
-          dateCreated
-          series
-          reps
+          workouts {
+            id
+            day
+            title
+            description
+            dateCreated
+            series
+            reps
+          }
         }
       }
-    }
   `,
-    { weeklyOffset: weeklyOffsetNumber }
+    { weeklyOffset: date.toString() }
   );
 
+  console.log(workouts)
   let list = workouts.data.getWorkoutForSelectedWeek;
   if (list != 0) {
     console.log(list);
@@ -82,6 +100,15 @@ const leftArrow = document.getElementById('left');
 let number = 0;
 
 leftArrow.addEventListener('click', async (e) => {
+  e.preventDefault();
+  number--;
+  getTodayWorkouts(number);
+});
+
+
+const rightArrow = document.getElementById('right');
+
+rightArrow.addEventListener('click', async (e) => {
   e.preventDefault();
   number++;
   getTodayWorkouts(number);
