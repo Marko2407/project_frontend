@@ -92,16 +92,80 @@ leftArrow.addEventListener('click', async (e) => {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
-  if (getWorkoutBySearchInput.getWorkoutBySearchInput != null) {
-    workoutList.innerHTML = '';
-    getWorkoutBySearchInput.getWorkoutBySearchInput.forEach((e) => {
-      console.log(e);
-      let element = document.createElement('div');
-      element.innerText = e.title;
-      workoutList.append(element);
-    });
-  }
+  console.log(getWorkoutBySearchInput.getWorkoutBySearchInput)
+  renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput)
 });
+
+function renderSearchResultview(searchResult){
+  //isprazni div 
+  document.getElementById('blok-proba').innerHTML = ``;
+  if(searchResult !=0){
+    searchResult.forEach((day) => {
+      //kreiraj onoliko node koliko ima dana
+      const node = document.createElement('div');
+      node.classList.add('blok');
+        //Napisi koji je to dan i datum
+      node.innerHTML = `
+      <div class="blok-naslov">
+         <h3 class="blok-naslov">${day.day}</h3>
+        <h4>${day.date}</h4>
+        <hr class="line">
+      </div>
+      <div class="blok-table">
+        <table>
+          <tr class="blok-table__title">
+            <th>Vježba:</th>
+            <th>Serije:</th>
+            <th>Ponavljanja:</th>
+            <th>Opis:</th>
+          </tr>
+          <tr>
+            ${generateSearchListItems(day.workout)}
+          </tr>
+        </table>    
+      </div>
+    `;
+    document.getElementById('blok-proba').appendChild(node);
+    //posalji listu workouta gdje se onda koja ce bit array() 
+  })
+  }else{
+    //nema rezultata
+    console.log('Empty list');
+    document.getElementById('blok-proba').innerHTML = `
+   <br>
+   <br>
+   <br>
+   <h1>No workouts available</h1>
+    
+  `;
+  }
+  
+
+}
+
+function generateSearchListItems(argument) {
+  items = '';
+  argument.forEach((workout) => {
+    items += `
+              <tr>
+              <td>
+                ${workout.title}
+              </td>
+              <td>
+                ${workout.series}
+              </td>
+              <td>
+                ${workout.reps}
+              </td>
+              <td>
+                ${workout.description}
+              </td>
+            </tr>
+      `;
+  });
+  return items;
+}
+
 
 function getWorkoutBySearch(searchInput) {
   return queryFetch(
