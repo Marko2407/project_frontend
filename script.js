@@ -194,7 +194,7 @@ function getWorkoutBySearch(searchInput) {
     return res.data;
   });
 }else{
-  getTodayWorkouts(0)
+  getTodayWorkouts(number)
   console.log("PRAZNO")
 }
 }
