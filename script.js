@@ -51,11 +51,12 @@ async function getTodayWorkouts(weeklyOffset) {
       const node = document.createElement('div');
       node.classList.add('blok');
       if (day.workouts.length != 0) {
-        let dateCreated = day.workouts[0].dateCreated;
+        let dateCreated = removeTime(new Date(parseInt(day.workouts[0].dateCreated)));
+        let date = dateCreated.getDate() + "." + dateCreated.getMonth() + "." + dateCreated.getFullYear() + "."
         node.innerHTML = `
         <div class="blok-naslov">
           <h3 class="blok-naslov">${day.day}</h3>
-          <h4>${dateCreated}</h4>
+          <h4>${date}</h4>
           <hr class="line">
         </div>
         <div class="blok-table">
