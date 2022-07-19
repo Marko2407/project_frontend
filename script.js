@@ -8,22 +8,21 @@ const searchInput = form.elements['search'];
 async function getTodayWorkouts(weeklyOffsetNumber) {
   document.getElementById('blok-proba').innerHTML = ``;
   const workouts = await queryFetch(
-    `
-    query GetWorkoutForSelectedWeek($weeklyOffset: Int) {
-    getWorkoutForSelectedWeek(weeklyOffset: $weeklyOffset) {
-    day
-    workouts {
-      id
-      day
-      title
-      description
-      dateCreated
-      series
-      reps
+      `query GetWorkoutForSelectedWeek($weeklyOffset: Int) {
+        getWorkoutForSelectedWeek(weeklyOffset: $weeklyOffset) {
+        day
+        workouts {
+          id
+          day
+          title
+          description
+          dateCreated
+          series
+          reps
+        }
+      }
     }
-  }
-}
-    `,
+  `,
     { weeklyOffset: weeklyOffsetNumber }
   );
 
@@ -36,32 +35,32 @@ async function getTodayWorkouts(weeklyOffsetNumber) {
       if (day.workouts.length != 0) {
         let dateCreated = day.workouts[0].dateCreated;
         node.innerHTML = `
-    <div class="blok-naslov">
-      <h3 class="blok-naslov">${day.day}</h3>
-      <h4>${dateCreated}</h4>
-      <hr class="line">
-    </div>
-    <div class="blok-table">
-      <table>
-        <tr class="blok-table__title">
-          <th>Vježba:</th>
-          <th>Serije:</th>
-          <th>Ponavljanja:</th>
-          <th>Opis:</th>
-        </tr>
-        <tr>
-          ${generateListItems(day)}
-        </tr>
-      </table>    
-    </div>
- `;
-      } else {
-        node.innerHTML = `
-   <div class="blok-naslov">
-    <h3 class="blok-naslov">${day.day}</h3>
-    <p>No workouts available</p>
-  </div>
-`;
+        <div class="blok-naslov">
+          <h3 class="blok-naslov">${day.day}</h3>
+          <h4>${dateCreated}</h4>
+          <hr class="line">
+        </div>
+        <div class="blok-table">
+          <table>
+            <tr class="blok-table__title">
+              <th>Vježba:</th>
+              <th>Serije:</th>
+              <th>Ponavljanja:</th>
+              <th>Opis:</th>
+            </tr>
+            <tr>
+              ${generateListItems(day)}
+            </tr>
+          </table>    
+        </div>
+    `;
+  } else {
+    node.innerHTML = `
+      <div class="blok-naslov">
+        <h3 class="blok-naslov">${day.day}</h3>
+        <p>No workouts available</p>
+      </div>
+    `;
       }
       document.getElementById('blok-proba').appendChild(node);
     });
@@ -72,7 +71,6 @@ async function getTodayWorkouts(weeklyOffsetNumber) {
    <br>
    <br>
    <h1>No workouts available</h1>
-    
   `;
   }
 }
@@ -137,33 +135,30 @@ function renderSearchResultview(searchResult){
    <br>
    <br>
    <br>
-   <h1>No workouts available</h1>
-    
+   <h1>We couldn't find anything!</h1>
   `;
   }
-  
-
 }
 
 function generateSearchListItems(argument) {
   items = '';
   argument.forEach((workout) => {
-    items += `
-              <tr>
-              <td>
-                ${workout.title}
-              </td>
-              <td>
-                ${workout.series}
-              </td>
-              <td>
-                ${workout.reps}
-              </td>
-              <td>
-                ${workout.description}
-              </td>
-            </tr>
-      `;
+  items += `
+            <tr>
+            <td>
+              ${workout.title}
+            </td>
+            <td>
+              ${workout.series}
+            </td>
+            <td>
+              ${workout.reps}
+            </td>
+            <td>
+              ${workout.description}
+            </td>
+          </tr>
+          `;
   });
   return items;
 }
@@ -171,32 +166,32 @@ function generateSearchListItems(argument) {
 
 function getWorkoutBySearch(searchInput) {
   if(searchInput != ""){
-  return queryFetch(
-    `
-         query GetWorkoutBySearchInput($searchInput: String) {
-             getWorkoutBySearchInput(searchInput: $searchInput) {
-    day
-    date
-    workout {
-      id
-      day
-      title
-      description
-      dateCreated
-      series
-      reps
-    }
-  }
-           }
-         `,
-    { searchInput: searchInput }
-  ).then((res) => {
-    return res.data;
-  });
-}else{
+    return queryFetch(
+      `
+        query GetWorkoutBySearchInput($searchInput: String) {
+            getWorkoutBySearchInput(searchInput: $searchInput) {
+              day
+              date
+              workout {
+                id
+                day
+                title
+                description                
+                dateCreated
+                series
+                reps
+              }
+            }
+          }
+      `,
+      { searchInput: searchInput }
+    ).then((res) => {
+      return res.data;
+    });
+  }else{
   getTodayWorkouts(number)
   console.log("PRAZNO")
-}
+  }
 }
 
 function queryFetch(query, variables) {
