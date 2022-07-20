@@ -274,7 +274,7 @@ const PLEASE_ENTER_TITLE = 'Please enter Title'
 const DEV_URL = 'http://localhost:4000/graphql/'
 const NO_WORKOUTS_AVAILABLE = 'No workouts available';
 
-//QUERIES AND MUTATUTIONS
+//QUERIES AND MUTATIONS
 const CREATE_NEW_WORKOUT_MUTATION =  `
 mutation CreateWorkout($title: String, $description: String, $dateCreated: String, $reps: Int, $series: Int) {
   createWorkout(title: $title,description: $description,dateCreated: $dateCreated,reps: $reps,series: $series) {
