@@ -37,6 +37,16 @@ let user = {
   tezinaKorisnika: null,
 };
 
+const daysInWeek = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+
 function createWorkoutList(){
     const firstWorkout = [
       vj1.value,
@@ -76,11 +86,12 @@ function fillUserInfo(){
 async function getTodayWorkouts() {
   const workouts = await queryFetch(GET_TODAY_WORKOUT_QUERY);
   const reponse = workouts.data.getTodayWorkouts;
+  document.getElementById('trenutni-dan').innerHTML = daysInWeek[new Date().getDay()]
   if (reponse.length !== 0) {
   console.log(reponse)
-  document.getElementById('trenutni-dan').innerHTML = reponse[0].day;
   document.getElementById('container-vjezbe').innerHTML = createWorkoutRowView(reponse);
   }else {
+    document.getElementById('container-vjezbe').innerHTML = createRowWithEmptyDataView()
     // UBACITI NEKI POPUP ILI SLICNO TIPA ALERT
     console.log(EMPTY_DATA);
   }
@@ -239,7 +250,6 @@ function createWorkoutRowView(workouts){
 function createRowWithEmptyDataView(day){
   return  `
        <div class="blok-naslov">
-         <h3 class="blok-naslov">${day}</h3>
          <p>${NO_WORKOUTS_AVAILABLE}</p>
        </div>
      `;
