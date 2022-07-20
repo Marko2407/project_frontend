@@ -12,6 +12,7 @@ let items = '';
 // BLOKOVI S VJEŽBAMA
 const blokVjezbi = document.getElementById('row');
 
+//Manipulacija s datumima
 function subtractWeeks(numOfWeeks, date = new Date()) {
   return date.setDate(date.getDate() - numOfWeeks * 7);
 }
@@ -52,7 +53,7 @@ async function getTodayWorkouts(weeklyOffset) {
       document.getElementById('blok-proba').appendChild(node);
     });
   } else {
-    console.log('Empty list');
+    console.log(EMPTY);
     document.getElementById('blok-proba').innerHTML = noWorkoutView(NO_WORKOUTS_AVAILABLE)
   }
 }
@@ -68,12 +69,12 @@ function getWorkoutBySearch(searchInput) {
     blokIcon.classList.remove('hide-blok');
     blokIcon.classList.add('show-blok');
     getTodayWorkouts(number);
-    console.log('PRAZNO');
+    console.log(EMPTY);
   }
 }
 
 function queryFetch(query, variables) {
-  return fetch('http://localhost:4000/graphql/', {
+  return fetch(DEV_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -84,26 +85,27 @@ function queryFetch(query, variables) {
 }
 
 //Kreiranje eventListenera
-leftArrow.addEventListener('click', async (e) => {
-  e.preventDefault();
-  number--;
-  getTodayWorkouts(number);
-});
+function createClickListeners(){
+  leftArrow.addEventListener('click', async (e) => {
+    e.preventDefault();
+    number--;
+    getTodayWorkouts(number);
+  });
 
-rightArrow.addEventListener('click', async (e) => {
-  e.preventDefault();
-  number++;
-  getTodayWorkouts(number);
-});
+  rightArrow.addEventListener('click', async (e) => {
+    e.preventDefault();
+    number++;
+    getTodayWorkouts(number);
+  });
 
-searchEnter.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
-  if (getWorkoutBySearchInput != null) {
-    renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput);
-  }
-});
-
+  searchEnter.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
+    if (getWorkoutBySearchInput != null) {
+      renderSearchResultview(getWorkoutBySearchInput.getWorkoutBySearchInput);
+    }
+  });
+}
 //Kreiranje UI-a
 function renderSearchResultview(searchResult) {
   //isprazni div
@@ -122,7 +124,7 @@ function renderSearchResultview(searchResult) {
     });
   } else {
     //nema rezultata
-    console.log('Empty list');
+    console.log(EMPTY);
     document.getElementById('blok-proba').innerHTML = noWorkoutView(NOT_FIND)
   }
 }
@@ -153,7 +155,7 @@ function createRowWithEmptyDataView(day){
  return  `
       <div class="blok-naslov">
         <h3 class="blok-naslov">${day}</h3>
-        <p>No workouts available</p>
+        <p>${NO_WORKOUTS_AVAILABLE}</p>
       </div>
     `;
 }
@@ -192,10 +194,8 @@ function generateListItems(argument) {
 
 const NO_WORKOUTS_AVAILABLE = 'No workouts available';
 const NOT_FIND = "We couldn't find anything!";
-const EMPTY_DATA = 'Nema podataka';
-
-
-
+const DEV_URL = 'http://localhost:4000/graphql/'
+const EMPTY = "Empty list"
 
 //QUERIES 
 const GET_WORKOUT_BY_SEARCH_QUERY = `
@@ -232,5 +232,10 @@ const GET_WORKOUT_FOR_SELECTED_WEEK_QUERY = `query GetWorkoutForSelectedWeek($we
 }
 `
 
+function init(){
+  getTodayWorkouts(0);
+}
+
 //First method to initiate when page open
-getTodayWorkouts(0);
+init()
+createClickListeners()
