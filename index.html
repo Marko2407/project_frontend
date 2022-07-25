@@ -12,7 +12,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-
+    <!-- CANVAS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <title>Početna</title>
   </head>
   <body>
@@ -27,7 +28,9 @@
           ></a>
         </div>
         <div>
-          <a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+          <a href="graf.html"
+            ><i class="fa fa-bar-chart" aria-hidden="true"></i
+          ></a>
         </div>
       </div>
 
@@ -39,9 +42,20 @@
             <br />
             <button class="btn" id="user_delete">Izbriši</button>
           </div>
-
         </div>
-        <div class="blok blok-grafovi"><p>Blok2</p></div>
+        <div class="blok blok-grafovi">
+          <div class="blok-podaci__info" id="blok-graf__info"></div>
+          <div class="blok-podaci__gumbi">
+            <input type="number" name="koraci" />
+            <button class="btn" id="unesi_korake">Unesi</button>
+          </div>
+
+          <br />
+          <div class="graf" id="graf">
+            <!-- CANVAS -->
+            <canvas id="myChart" style="width: 100%; max-width: 600px"></canvas>
+          </div>
+        </div>
 
         <!-- <h2>Odrađene vježbe u trenutnom danu</h2> -->
         <div class="blok blok-vjezbe">
@@ -164,5 +178,6 @@
 
     <!-- JS -->
     <script src="pocetna.js"></script>
+    <script src="graf.js"></script>
   </body>
 </html>

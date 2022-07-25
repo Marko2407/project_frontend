@@ -21,8 +21,15 @@ function multiplyWeeks(numOfWeeks, date) {
   return date.setDate(date.getDate() + numOfWeeks * 7);
 }
 
-function createDateString(dateCreated){
-  return (dateCreated.getDate() + '.' + dateCreated.getMonth() + '.' + dateCreated.getFullYear() + '.');
+function createDateString(dateCreated) {
+  return (
+    dateCreated.getDate() +
+    '.' +
+    dateCreated.getMonth() +
+    '.' +
+    dateCreated.getFullYear() +
+    '.'
+  );
 }
 
 const removeTime = (date) => {
@@ -32,7 +39,9 @@ const removeTime = (date) => {
 async function getTodayWorkouts(weeklyOffset) {
   date = subtractWeeks(weeklyOffset);
   document.getElementById('blok-proba').innerHTML = ``;
-  const workouts = await queryFetch(GET_WORKOUT_FOR_SELECTED_WEEK_QUERY,{ weeklyOffset: date.toString() });
+  const workouts = await queryFetch(GET_WORKOUT_FOR_SELECTED_WEEK_QUERY, {
+    weeklyOffset: date.toString(),
+  });
 
   console.log(workouts);
   let list = workouts.data.getWorkoutForSelectedWeek;
@@ -44,17 +53,23 @@ async function getTodayWorkouts(weeklyOffset) {
         let dateCreated = removeTime(
           new Date(parseInt(day.workouts[0].dateCreated))
         );
-        let date = createDateString(dateCreated)
-          
-        node.innerHTML = createRowWithAvailableDataView(day.day, date, day.workouts)
+        let date = createDateString(dateCreated);
+
+        node.innerHTML = createRowWithAvailableDataView(
+          day.day,
+          date,
+          day.workouts
+        );
       } else {
-        node.innerHTML = createRowWithEmptyDataView(day.day)
+        node.innerHTML = createRowWithEmptyDataView(day.day);
       }
       document.getElementById('blok-proba').appendChild(node);
     });
   } else {
     console.log(EMPTY);
-    document.getElementById('blok-proba').innerHTML = noWorkoutView(NO_WORKOUTS_AVAILABLE)
+    document.getElementById('blok-proba').innerHTML = noWorkoutView(
+      NO_WORKOUTS_AVAILABLE
+    );
   }
 }
 
@@ -62,7 +77,9 @@ function getWorkoutBySearch(searchInput) {
   if (searchInput != '') {
     blokIcon.classList.add('hide-blok');
     blokIcon.classList.remove('show-blok');
-    return queryFetch(GET_WORKOUT_BY_SEARCH_QUERY,{ searchInput: searchInput }).then((res) => {
+    return queryFetch(GET_WORKOUT_BY_SEARCH_QUERY, {
+      searchInput: searchInput,
+    }).then((res) => {
       return res.data;
     });
   } else {
@@ -85,7 +102,7 @@ function queryFetch(query, variables) {
 }
 
 //Kreiranje eventListenera
-function createClickListeners(){
+function createClickListeners() {
   leftArrow.addEventListener('click', async (e) => {
     e.preventDefault();
     number--;
@@ -116,21 +133,25 @@ function renderSearchResultview(searchResult) {
       const node = document.createElement('div');
       node.classList.add('blok');
       let dateCreated = removeTime(new Date(parseInt(day.date)));
-      let date = createDateString(dateCreated)
+      let date = createDateString(dateCreated);
       //Napisi koji je to dan i datum
-      node.innerHTML = createRowWithAvailableDataView(day.day, date, day.workout)
+      node.innerHTML = createRowWithAvailableDataView(
+        day.day,
+        date,
+        day.workout
+      );
       document.getElementById('blok-proba').appendChild(node);
       //posalji listu workouta gdje se onda koja ce bit array()
     });
   } else {
     //nema rezultata
     console.log(EMPTY);
-    document.getElementById('blok-proba').innerHTML = noWorkoutView(NOT_FIND)
+    document.getElementById('blok-proba').innerHTML = noWorkoutView(NOT_FIND);
   }
 }
 
-function createRowWithAvailableDataView(day, date, workouts){
- return `<div class="blok-naslov">
+function createRowWithAvailableDataView(day, date, workouts) {
+  return `<div class="blok-naslov">
           <h3 class="blok-naslov">${day}</h3>
           <h4>${date}</h4>
           <hr class="line">
@@ -151,8 +172,8 @@ function createRowWithAvailableDataView(day, date, workouts){
     `;
 }
 
-function createRowWithEmptyDataView(day){
- return  `
+function createRowWithEmptyDataView(day) {
+  return `
       <div class="blok-naslov">
         <h3 class="blok-naslov">${day}</h3>
         <p>${NO_WORKOUTS_AVAILABLE}</p>
@@ -160,7 +181,7 @@ function createRowWithEmptyDataView(day){
     `;
 }
 
-function noWorkoutView(msg){
+function noWorkoutView(msg) {
   return `
    <br>
    <br>
@@ -173,7 +194,7 @@ function generateListItems(argument) {
   items = '';
   argument.forEach((workout) => {
     items += `
-            <tr>
+          <tr>
             <td>
               ${workout.title}
             </td>
@@ -194,10 +215,10 @@ function generateListItems(argument) {
 
 const NO_WORKOUTS_AVAILABLE = 'No workouts available';
 const NOT_FIND = "We couldn't find anything!";
-const DEV_URL = 'http://localhost:4000/graphql/'
-const EMPTY = "Empty list"
+const DEV_URL = 'http://localhost:4000/graphql/';
+const EMPTY = 'Empty list';
 
-//QUERIES 
+//QUERIES
 const GET_WORKOUT_BY_SEARCH_QUERY = `
 query GetWorkoutBySearchInput($searchInput: String) {
     getWorkoutBySearchInput(searchInput: $searchInput) {
@@ -214,7 +235,7 @@ query GetWorkoutBySearchInput($searchInput: String) {
       }
     }
   }
-`
+`;
 
 const GET_WORKOUT_FOR_SELECTED_WEEK_QUERY = `query GetWorkoutForSelectedWeek($weeklyOffset: String) {
   getWorkoutForSelectedWeek(date: $weeklyOffset) {
@@ -230,12 +251,12 @@ const GET_WORKOUT_FOR_SELECTED_WEEK_QUERY = `query GetWorkoutForSelectedWeek($we
     }
   }
 }
-`
+`;
 
-function init(){
+function init() {
   getTodayWorkouts(0);
 }
 
 //First method to initiate when page open
-init()
-createClickListeners()
+init();
+createClickListeners();
