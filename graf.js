@@ -24,7 +24,7 @@ async function getWeeklyActivitiesl() {
     blokGraf.appendChild(node);
     id.forEach((element) => {
       console.log(element);
-      generateChart(result[element.index].weeklyActivities, element.chartId);
+      generateCharts(result[element.index].weeklyActivities, element.chartId);
     });
   });
 }

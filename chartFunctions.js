@@ -34,7 +34,7 @@ function createChart(id, valuesY) {
   });
 }
 
-function generateChart(activities, id) {
+function generateCharts(activities, id) {
   console.log(activities);
   console.log(id);
   let y = [];
