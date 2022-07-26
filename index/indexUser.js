@@ -2,19 +2,20 @@ async function getCurrentUser() {
   const userQuery = await queryFetch(GET_CURRENT_USER_QUERY);
   console.log(userQuery);
   if (userQuery.data.getUser != null) {
-    user.idKorisnika = userQuery.data.getUser.id;
-    user.imeKorisnika = userQuery.data.getUser.firstName;
-    user.prezimeKorisnika = userQuery.data.getUser.lastName;
-    user.visinaKorisnika = parseInt(userQuery.data.getUser.height);
-    user.tezinaKorisnika = parseInt(userQuery.data.getUser.weight);
-
-    console.log(CREATED_USER + JSON.stringify(user));
-    userBlok.innerHTML = createUserRowView(user);
-    return true;
+    mapUserInfo(userQuery.data.getUser);
+    return user;
   } else {
-    console.log(NO_CREATED_USER);
-    return false;
+    return null;
   }
+}
+
+function mapUserInfo(response) {
+  console.log(response);
+  user.idKorisnika = response.id;
+  user.imeKorisnika = response.firstName;
+  user.prezimeKorisnika = response.lastName;
+  user.visinaKorisnika = parseInt(response.height);
+  user.tezinaKorisnika = parseInt(response.weight);
 }
 
 async function createNewUser(user) {

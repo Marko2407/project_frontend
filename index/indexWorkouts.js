@@ -1,18 +1,6 @@
 async function getTodayWorkouts() {
   const workouts = await queryFetch(GET_TODAY_WORKOUT_QUERY);
-  const reponse = workouts.data.getTodayWorkouts;
-  document.getElementById("trenutni-dan").innerHTML =
-    daysInWeek[new Date().getDay()];
-  if (reponse.length !== 0) {
-    console.log(reponse);
-    document.getElementById("container-vjezbe").innerHTML =
-      createWorkoutRowView(reponse);
-  } else {
-    document.getElementById("container-vjezbe").innerHTML =
-      createRowWithEmptyDataView();
-    // UBACITI NEKI POPUP ILI SLICNO TIPA ALERT
-    console.log(EMPTY_DATA);
-  }
+  return workouts.data.getTodayWorkouts;
 }
 
 async function createNewWorkout(workout) {

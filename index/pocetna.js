@@ -23,15 +23,65 @@ const daysInWeek = [
 
 let yValues = [];
 
-async function init() {
-  const isUserExist = await getCurrentUser();
-  if (isUserExist) {
-    getTodayWorkouts();
-    getTodayActivity();
-    getWeeklyActivities();
+async function getUser() {
+  const response = await getCurrentUser();
+  if (response != null) {
+    console.log(CREATED_USER + JSON.stringify(user));
+    userBlok.innerHTML = createUserRowView(user);
   } else {
+    console.log(NO_CREATED_USER);
     userModalContainer.classList.add("show");
     //Open modal for creating user
+  }
+}
+
+async function getActivityForToday() {
+  const response = await getTodayActivity();
+  if (response != null) {
+    grafInfo.innerHTML = createActivityRowView(response);
+  } else {
+    await createNewTodayActivity(0);
+  }
+}
+
+async function getWorkoutsForToday() {
+  const response = await getTodayWorkouts();
+  renderWorkoutResponse(response);
+}
+
+async function getActivitiesWeekly() {
+  const response = await getWeeklyActivities();
+  response.activities.forEach((element) => {
+    yValues.push(element.totalSteps);
+  });
+  createChart("myChart", yValues);
+}
+
+async function updateSteps(koraci) {
+  await updateTodaySteps(koraci);
+}
+
+async function init() {
+  const isUserExist = getUser();
+  if (isUserExist) {
+    getWorkoutsForToday();
+    getActivityForToday();
+    getActivitiesWeekly();
+  }
+}
+
+function renderWorkoutResponse(response) {
+  document.getElementById("trenutni-dan").innerHTML =
+    daysInWeek[new Date().getDay()];
+  if (response.length !== 0) {
+    console.log(response);
+    document.getElementById("container-vjezbe").innerHTML =
+      createWorkoutRowView(response);
+  } else {
+    document.getElementById("container-vjezbe").innerHTML =
+      createRowWithEmptyDataView();
+    // UBACITI NEKI POPUP ILI SLICNO TIPA ALERT
+    console.log(EMPTY_DATA);
   }
 }
 
@@ -96,7 +146,7 @@ function createClickListeners() {
     const koraci = parseInt(inputKoraci.value);
     console.log(koraci == NaN);
     if (!isNaN(koraci)) {
-      await updateTodaySteps(koraci);
+      updateSteps(koraci);
     } else {
       console.log("Unesi korake");
     }
