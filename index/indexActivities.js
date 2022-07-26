@@ -1,12 +1,12 @@
 async function getWeeklyActivities() {
-  const a = await queryFetch(GET_WEEKLY_ACTIVITIES_QUERY);
-  console.log(a.data.getWeeklyActivities);
-  return a.data.getWeeklyActivities;
+  const response = await queryFetch(GET_WEEKLY_ACTIVITIES_QUERY);
+  console.log(response.data.getWeeklyActivities);
+  return response.data.getWeeklyActivities;
 }
 
 async function getTodayActivity() {
-  const a = await queryFetch(GET_TODAY_ACIVITY_QUERY);
-  return a.data.getTodayActivity;
+  const response = await queryFetch(GET_TODAY_ACIVITY_QUERY);
+  return response.data.getTodayActivity;
 }
 
 async function updateTodaySteps(step) {
