@@ -12,30 +12,6 @@ let items = "";
 // BLOKOVI S VJEŽBAMA
 const blokVjezbi = document.getElementById("row");
 
-//Manipulacija s datumima
-function subtractWeeks(numOfWeeks, date = new Date()) {
-  return date.setDate(date.getDate() - numOfWeeks * 7);
-}
-
-function multiplyWeeks(numOfWeeks, date) {
-  return date.setDate(date.getDate() + numOfWeeks * 7);
-}
-
-function createDateString(dateCreated) {
-  return (
-    dateCreated.getDate() +
-    "." +
-    dateCreated.getMonth() +
-    "." +
-    dateCreated.getFullYear() +
-    "."
-  );
-}
-
-const removeTime = (date) => {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-};
-
 async function getTodayWorkouts(weeklyOffset) {
   date = subtractWeeks(weeklyOffset);
   document.getElementById("blok-proba").innerHTML = ``;

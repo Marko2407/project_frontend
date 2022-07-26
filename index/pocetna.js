@@ -11,16 +11,6 @@ const inputKoraci = document.querySelector("input[name = 'koraci']");
 const grafInfo = document.getElementById("blok-graf_info");
 const blokGraf = document.getElementById("blok-graf");
 
-const daysInWeek = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-
 let yValues = [];
 
 async function getUser() {
