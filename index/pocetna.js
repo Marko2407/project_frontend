@@ -51,7 +51,7 @@ async function updateSteps(koraci) {
   await updateTodaySteps(koraci);
 }
 
-async function init() {
+function init() {
   const isUserExist = getUser();
   if (isUserExist) {
     getWorkoutsForToday();
