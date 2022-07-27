@@ -13,10 +13,6 @@ async function updateTodaySteps(step) {
   await queryFetch(UPDATE_TODAY_STEPS_MUTATION, {
     steps: step,
   });
-  xValues = [];
-  yValues = [];
-  await getTodayActivity();
-  await getWeeklyActivities();
 }
 
 async function createNewTodayActivity(steps) {

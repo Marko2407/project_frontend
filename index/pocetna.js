@@ -1,15 +1,15 @@
-const userModalContainer = document.getElementById("user_modal_container");
-const openWorkoutModal = document.getElementById("open");
-const workoutModalContainer = document.getElementById("modal_container");
-const closeWorkoutModal = document.getElementById("close");
-const closeUserModal = document.getElementById("close_user_modal");
-const userBlok = document.getElementById("blok_korisnik_info");
+const userModalContainer = document.getElementById('user_modal_container');
+const openWorkoutModal = document.getElementById('open');
+const workoutModalContainer = document.getElementById('modal_container');
+const closeWorkoutModal = document.getElementById('close');
+const closeUserModal = document.getElementById('close_user_modal');
+const userBlok = document.getElementById('blok_korisnik_info');
 
-const unesiKorake = document.getElementById("unesi_korake");
+const unesiKorake = document.getElementById('unesi_korake');
 const inputKoraci = document.querySelector("input[name = 'koraci']");
 
-const grafInfo = document.getElementById("blok-graf_info");
-const blokGraf = document.getElementById("blok-graf");
+const grafInfo = document.getElementById('blok-graf_info');
+const blokGraf = document.getElementById('blok-graf');
 
 let yValues = [];
 
@@ -20,7 +20,7 @@ async function getUser() {
     userBlok.innerHTML = createUserRowView(user);
   } else {
     console.log(NO_CREATED_USER);
-    userModalContainer.classList.add("show");
+    userModalContainer.classList.add('show');
     //Open modal for creating user
   }
 }
@@ -44,11 +44,14 @@ async function getActivitiesWeekly() {
   response.activities.forEach((element) => {
     yValues.push(element.totalSteps);
   });
-  createChart("myChart", yValues);
+  createChart('myChart', yValues);
 }
 
 async function updateSteps(koraci) {
   await updateTodaySteps(koraci);
+  yValues = [];
+  await getActivityForToday();
+  await getActivitiesWeekly();
 }
 
 function init() {
@@ -61,14 +64,14 @@ function init() {
 }
 
 function renderWorkoutResponse(response) {
-  document.getElementById("trenutni-dan").innerHTML =
+  document.getElementById('trenutni-dan').innerHTML =
     daysInWeek[new Date().getDay()];
   if (response.length !== 0) {
     console.log(response);
-    document.getElementById("container-vjezbe").innerHTML =
+    document.getElementById('container-vjezbe').innerHTML =
       createWorkoutRowView(response);
   } else {
-    document.getElementById("container-vjezbe").innerHTML =
+    document.getElementById('container-vjezbe').innerHTML =
       createRowWithEmptyDataView();
     // UBACITI NEKI POPUP ILI SLICNO TIPA ALERT
     console.log(EMPTY_DATA);
@@ -77,24 +80,24 @@ function renderWorkoutResponse(response) {
 
 // MODAL
 function createClickListeners() {
-  openWorkoutModal.addEventListener("click", () => {
-    workoutModalContainer.classList.add("show");
+  openWorkoutModal.addEventListener('click', () => {
+    workoutModalContainer.classList.add('show');
   });
 
-  closeWorkoutModal.addEventListener("click", () => {
-    workoutModalContainer.classList.remove("show");
+  closeWorkoutModal.addEventListener('click', () => {
+    workoutModalContainer.classList.remove('show');
   });
 
-  closeUserModal.addEventListener("click", () => {
-    userModalContainer.classList.remove("show");
+  closeUserModal.addEventListener('click', () => {
+    userModalContainer.classList.remove('show');
   });
 
-  addNewWorkoutsModal.addEventListener("click", async (e) => {
+  addNewWorkoutsModal.addEventListener('click', async (e) => {
     e.preventDefault();
     const listOfCreatedWorkout = createWorkoutList();
     for (let i = 0; i < listOfCreatedWorkout.length; i++) {
       //ako title nije prazan, kreiraj novu vjezbu
-      if (listOfCreatedWorkout[i][0] !== "") {
+      if (listOfCreatedWorkout[i][0] !== '') {
         createNewWorkout(listOfCreatedWorkout[i]);
         location.reload();
       } else {
@@ -104,11 +107,11 @@ function createClickListeners() {
     }
   });
 
-  addNewUserModal.addEventListener("click", async (e) => {
+  addNewUserModal.addEventListener('click', async (e) => {
     e.preventDefault();
     mapUserInputs();
     if (user.idKorisnika == null) {
-      if (user.imeKorisnika !== "" || user.prezimeKorisnika !== "") {
+      if (user.imeKorisnika !== '' || user.prezimeKorisnika !== '') {
         await createNewUser(user);
       } else {
         console.log(PLEASE_ENTER_USER_INFO);
@@ -119,26 +122,26 @@ function createClickListeners() {
     }
   });
 
-  document.getElementById("user_edit").addEventListener("click", () => {
+  document.getElementById('user_edit').addEventListener('click', () => {
     fillUserInfo();
-    userModalContainer.classList.add("show");
+    userModalContainer.classList.add('show');
   });
 
   document
-    .getElementById("user_delete")
-    .addEventListener("click", async (e) => {
+    .getElementById('user_delete')
+    .addEventListener('click', async (e) => {
       await deleteUser();
       location.reload();
     });
 
-  unesiKorake.addEventListener("click", async (e) => {
+  unesiKorake.addEventListener('click', async (e) => {
     e.preventDefault();
     const koraci = parseInt(inputKoraci.value);
     console.log(koraci == NaN);
     if (!isNaN(koraci)) {
       updateSteps(koraci);
     } else {
-      console.log("Unesi korake");
+      console.log('Unesi korake');
     }
   });
 }
@@ -172,7 +175,7 @@ function createRowWithEmptyDataView(day) {
 
 // PRIKAZ VJEZBI U TRENUTNOM DANU
 function generateListItems(argument) {
-  let items = "";
+  let items = '';
   argument.forEach((element) => {
     items += `<li>${element.title}</li>`;
   });

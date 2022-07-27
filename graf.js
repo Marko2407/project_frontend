@@ -1,20 +1,24 @@
-const graf = document.getElementById("graf");
-const grafInfo = document.getElementById("blok-graf__info");
+const graf = document.getElementById('graf');
+const grafInfo = document.getElementById('blok-graf__info');
+const prevM = document.getElementById('left-activities');
+const nextM = document.getElementById('right-activities');
+let monthCounter = 0;
 
-const blokGraf = document.getElementById("blok-graf");
-const id = [];
+const blokGraf = document.getElementById('blok-graf');
+let id = [];
 
-async function getWeeklyActivitiesl() {
+async function getWeeklyActivitiesl(date = new Date()) {
   const a = await queryFetch(GET_MONTHLY_ACTIVITIES_QUERY, {
-    date: new Date(),
+    date: date.toString(),
   });
   const result = a.data.getMonthlyActivities;
   console.log(result);
   let weekNumber = 0;
+  id = [];
   blokGraf.innerHTML = ``;
   result.forEach((element) => {
-    const node = document.createElement("div");
-    node.classList.add("blok");
+    const node = document.createElement('div');
+    node.classList.add('blok');
     node.innerHTML = createRowWithAvailableStepsDataView(
       element.week,
       element.totalSteps,
@@ -26,6 +30,18 @@ async function getWeeklyActivitiesl() {
       console.log(element);
       generateCharts(result[element.index].weeklyActivities, element.chartId);
     });
+  });
+}
+
+function createClickListeners() {
+  prevM.addEventListener('click', () => {
+    monthCounter--;
+    console.log(monthCounter);
+    getWeeklyActivitiesl(subtractMonths(monthCounter));
+  });
+  nextM.addEventListener('click', () => {
+    monthCounter++;
+    getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
 }
 
@@ -68,4 +84,5 @@ function createRowWithAvailableStepsDataView(week, totalSteps, weekNumber) {
   }
 }
 
-getWeeklyActivitiesl();
+getWeeklyActivitiesl(subtractMonths(0));
+createClickListeners();

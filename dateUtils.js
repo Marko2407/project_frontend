@@ -3,6 +3,10 @@ function subtractWeeks(numOfWeeks, date = new Date()) {
   return date.setDate(date.getDate() - numOfWeeks * 7);
 }
 
+function subtractMonths(numOfWeeks, date = new Date()) {
+  return date.setMonth(date.getMonth() + 1 * numOfWeeks);
+}
+
 function multiplyWeeks(numOfWeeks, date) {
   return date.setDate(date.getDate() + numOfWeeks * 7);
 }
@@ -10,11 +14,11 @@ function multiplyWeeks(numOfWeeks, date) {
 function createDateString(dateCreated) {
   return (
     dateCreated.getDate() +
-    "." +
+    '.' +
     dateCreated.getMonth() +
-    "." +
+    '.' +
     dateCreated.getFullYear() +
-    "."
+    '.'
   );
 }
 
@@ -23,11 +27,11 @@ const removeTime = (date) => {
 };
 
 const daysInWeek = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ];
