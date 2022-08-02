@@ -1,10 +1,10 @@
-const graf = document.getElementById('graf');
-const grafInfo = document.getElementById('blok-graf__info');
-const prevM = document.getElementById('left-activities');
-const nextM = document.getElementById('right-activities');
+const graf = document.getElementById("graf");
+const grafInfo = document.getElementById("blok-graf__info");
+const prevM = document.getElementById("left-activities");
+const nextM = document.getElementById("right-activities");
 let monthCounter = 0;
 
-const blokGraf = document.getElementById('blok-graf');
+const blokGraf = document.getElementById("blok-graf");
 let id = [];
 
 async function getWeeklyActivitiesl(date = new Date()) {
@@ -17,8 +17,8 @@ async function getWeeklyActivitiesl(date = new Date()) {
   id = [];
   blokGraf.innerHTML = ``;
   result.forEach((element) => {
-    const node = document.createElement('div');
-    node.classList.add('blok');
+    const node = document.createElement("div");
+    node.classList.add("blok");
     node.innerHTML = createRowWithAvailableStepsDataView(
       element.week,
       element.totalSteps,
@@ -34,12 +34,12 @@ async function getWeeklyActivitiesl(date = new Date()) {
 }
 
 function createClickListeners() {
-  prevM.addEventListener('click', () => {
+  prevM.addEventListener("click", () => {
     monthCounter--;
     console.log(monthCounter);
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
-  nextM.addEventListener('click', () => {
+  nextM.addEventListener("click", () => {
     monthCounter++;
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
@@ -76,7 +76,7 @@ function createRowWithAvailableStepsDataView(week, totalSteps, weekNumber) {
           <br>
           <br>
           <br>
-            <h4>No Activities for today</h4>
+            <h4>No Activities for this week! </h4>
              <br>
           <br>
         </div>
