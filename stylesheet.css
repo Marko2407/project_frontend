@@ -64,10 +64,42 @@ body {
 
 /* ---------- BLOK 2 GRAFOVI ---------- */
 
-/*
 .blok-grafovi {
-  background-color: blue;
-} */
+  padding: 3rem;
+}
+
+.blok-grafovi__1 {
+  display: flex;
+  justify-content: space-around;
+  padding: 3rem;
+}
+
+.blok-grafovi__gumbi {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.blok-grafovi__gumbi > input {
+  margin-bottom: 1rem;
+  margin: 15px 0 15px 0;
+  height: 1.6rem;
+  border: 1px solid #b1aeae;
+  border-radius: 5px;
+}
+
+h3.blok-podaci_-name1 {
+  padding-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+/* CANVAS */
+
+.graf {
+  display: flex;
+  justify-content: center;
+}
 
 /* ---------- BLOK 3 VJEŽBE ---------- */
 

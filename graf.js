@@ -49,7 +49,7 @@ function createClickListeners() {
 function createActivityRowView(activity) {
   return `
   <ul>
-    <li><h3 class="blok-podaci__user-name">${activity.day}</h3></li>
+    <li><h2 class="blok-podaci__user-name">${activity.day}</h2></li>
     <li>${activity.totalSteps}</li>
   </ul> 
 `;
