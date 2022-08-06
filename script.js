@@ -14,6 +14,7 @@ const blokVjezbi = document.getElementById("row");
 
 async function getTodayWorkouts(weeklyOffset) {
   date = subtractWeeks(weeklyOffset);
+
   document.getElementById("blok-proba").innerHTML = ``;
   const workouts = await queryFetch(GET_WORKOUT_FOR_SELECTED_WEEK_QUERY, {
     weeklyOffset: date.toString(),
@@ -29,8 +30,8 @@ async function getTodayWorkouts(weeklyOffset) {
         let dateCreated = removeTime(
           new Date(parseInt(day.workouts[0].dateCreated))
         );
-        let date = createDateString(dateCreated);
 
+        let date = createDateString(dateCreated);
         node.innerHTML = createRowWithAvailableDataView(
           day.day,
           date,

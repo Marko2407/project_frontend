@@ -1,6 +1,6 @@
 //Manipulacija s datumima
 function subtractWeeks(numOfWeeks, date = new Date()) {
-  return date.setDate(date.getDate() - numOfWeeks * 7);
+  return date.setDate(date.getDate() + numOfWeeks * 7);
 }
 
 function subtractMonths(numOfWeeks, date = new Date()) {
@@ -12,13 +12,14 @@ function multiplyWeeks(numOfWeeks, date) {
 }
 
 function createDateString(dateCreated) {
+  console.log(dateCreated);
   return (
     dateCreated.getDate() +
-    '.' +
-    dateCreated.getMonth() +
-    '.' +
+    "." +
+    (dateCreated.getMonth() + 1) +
+    "." +
     dateCreated.getFullYear() +
-    '.'
+    "."
   );
 }
 
@@ -27,11 +28,11 @@ const removeTime = (date) => {
 };
 
 const daysInWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
 ];
