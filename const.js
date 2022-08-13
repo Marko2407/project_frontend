@@ -8,3 +8,4 @@ const DEV_URL = "http://localhost:4000/graphql/";
 const NO_WORKOUTS_AVAILABLE = "No workouts available";
 const NOT_FIND = "We couldn't find anything!";
 const EMPTY = "Empty list";
+const EROR = "Došlo je do pogreške!";

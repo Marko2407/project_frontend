@@ -2,6 +2,8 @@ const graf = document.getElementById("graf");
 const grafInfo = document.getElementById("blok-graf__info");
 const prevM = document.getElementById("left");
 const nextM = document.getElementById("right");
+const dateRange = document.getElementById("dateRange");
+
 let monthCounter = 0;
 
 const blokGraf = document.getElementById("generiranje-grafa");
@@ -13,8 +15,19 @@ async function getWeeklyActivitiesl(date = new Date()) {
   });
   const result = a.data.getMonthlyActivities;
   console.log(result);
+  if (result.length == 0) {
+    return (blokGraf.innerHTML = noActivitiesView(EROR));
+  }
+
   let weekNumber = 0;
   id = [];
+  let d = new Date(date);
+  const firstDayOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+  const lastDayOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+
+  dateRange.innerHTML = `${createDateString(
+    firstDayOfMonth
+  )} - ${createDateString(lastDayOfMonth)}`;
   blokGraf.innerHTML = ``;
   result.forEach((element) => {
     const node = document.createElement("div");
@@ -81,6 +94,16 @@ function createRowWithAvailableStepsDataView(week, totalSteps, weekNumber) {
         </div>
  `;
   }
+}
+
+function noActivitiesView(msg) {
+  return `
+  <div class="blok-naslov">
+   <br>
+   <br>
+   <br>
+   <h2>${msg}</h1>
+   </div>`;
 }
 
 getWeeklyActivitiesl(subtractMonths(0));
