@@ -15,13 +15,13 @@ let yValues = [];
 
 async function getUser() {
   const response = await getCurrentUser();
+  console.log(response);
   if (response != null) {
     console.log(CREATED_USER + JSON.stringify(user));
     userBlok.innerHTML = createUserRowView(user);
+    return true;
   } else {
-    console.log(NO_CREATED_USER);
-    userModalContainer.classList.add("show");
-    //Open modal for creating user
+    return false;
   }
 }
 
@@ -54,12 +54,16 @@ async function updateSteps(koraci) {
   await getActivitiesWeekly();
 }
 
-function init() {
-  const isUserExist = getUser();
+async function init() {
+  const isUserExist = await getUser();
   if (isUserExist) {
     getWorkoutsForToday();
     getActivityForToday();
     getActivitiesWeekly();
+  } else {
+    console.log(NO_CREATED_USER);
+    userModalContainer.classList.add("show");
+    //Open modal for creating user
   }
 }
 
@@ -118,8 +122,8 @@ function createClickListeners() {
       }
     } else {
       await updateUser(user);
-      location.reload();
     }
+    location.reload();
   });
 
   document.getElementById("user_edit").addEventListener("click", () => {
