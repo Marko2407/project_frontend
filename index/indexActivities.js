@@ -1,11 +1,12 @@
 async function getWeeklyActivities() {
   const response = await queryFetch(GET_WEEKLY_ACTIVITIES_QUERY);
-  console.log(response.data.getWeeklyActivities);
+  console.log(response);
   return response.data.getWeeklyActivities;
 }
 
 async function getTodayActivity() {
   const response = await queryFetch(GET_TODAY_ACIVITY_QUERY);
+  console.log(response);
   return response.data.getTodayActivity;
 }
 

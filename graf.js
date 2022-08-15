@@ -1,10 +1,12 @@
-const graf = document.getElementById('graf');
-const grafInfo = document.getElementById('blok-graf__info');
-const prevM = document.getElementById('left-activities');
-const nextM = document.getElementById('right-activities');
+const graf = document.getElementById("graf");
+const grafInfo = document.getElementById("blok-graf__info");
+const prevM = document.getElementById("left");
+const nextM = document.getElementById("right");
+const dateRange = document.getElementById("dateRange");
+
 let monthCounter = 0;
 
-const blokGraf = document.getElementById('generiranje-grafa');
+const blokGraf = document.getElementById("generiranje-grafa");
 let id = [];
 
 async function getWeeklyActivitiesl(date = new Date()) {
@@ -13,12 +15,23 @@ async function getWeeklyActivitiesl(date = new Date()) {
   });
   const result = a.data.getMonthlyActivities;
   console.log(result);
+  if (result.length == 0) {
+    return (blokGraf.innerHTML = noActivitiesView(EROR));
+  }
+
   let weekNumber = 0;
   id = [];
+  let d = new Date(date);
+  const firstDayOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+  const lastDayOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+
+  dateRange.innerHTML = `${createDateString(
+    firstDayOfMonth
+  )} - ${createDateString(lastDayOfMonth)}`;
   blokGraf.innerHTML = ``;
   result.forEach((element) => {
-    const node = document.createElement('div');
-    node.classList.add('blok');
+    const node = document.createElement("div");
+    node.classList.add("blok");
     node.innerHTML = createRowWithAvailableStepsDataView(
       element.week,
       element.totalSteps,
@@ -34,12 +47,12 @@ async function getWeeklyActivitiesl(date = new Date()) {
 }
 
 function createClickListeners() {
-  prevM.addEventListener('click', () => {
+  prevM.addEventListener("click", () => {
     monthCounter--;
     console.log(monthCounter);
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
-  nextM.addEventListener('click', () => {
+  nextM.addEventListener("click", () => {
     monthCounter++;
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
@@ -81,6 +94,16 @@ function createRowWithAvailableStepsDataView(week, totalSteps, weekNumber) {
         </div>
  `;
   }
+}
+
+function noActivitiesView(msg) {
+  return `
+  <div class="blok-naslov">
+   <br>
+   <br>
+   <br>
+   <h2>${msg}</h1>
+   </div>`;
 }
 
 getWeeklyActivitiesl(subtractMonths(0));
