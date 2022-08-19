@@ -18,30 +18,32 @@
     <!-- CANVAS JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
+    <!-- WEB COMPONENTS -->
+    <script src="./web components/nav-menu.js"></script>
+    <script src="./web components/big-title.js"></script>
+
     <title>Grafovi</title>
   </head>
   <body>
     <div class="layout-blok">
-      <div class="nav-column">
-        <div>
-          <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
-        </div>
-        <div>
-          <a href="vježbe.html"
-            ><i class="fa fa-child" aria-hidden="true"></i
-          ></a>
-        </div>
-        <div>
-          <a href="graf.html"
-            ><i class="fa fa-bar-chart" aria-hidden="true"></i
-          ></a>
-        </div>
-      </div>
+      <!-- TEMPLATE -->
+      <template id="nav-template">
+        <!-- CSS -->
+        <link rel="stylesheet" href="stylesheet.css" />
+
+        <!--FA ICON -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <div class="nav-column"></div>
+      </template>
+      <nav-menu></nav-menu>
 
       <div class="row row-center" id="row">
       
         <div class="blok-form">
-          <h1 class="blok-title">Svi grafovi</h1>
+          <big-title class="blok-title">Svi grafovi</big-title>
           <h3 id="dateRange"></h3>
             <div class="icons">
               <i

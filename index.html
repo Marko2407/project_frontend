@@ -17,28 +17,41 @@
     />
     <!-- CANVAS JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <!-- WEB COMPONENTS -->
+    <script src="./web components/nav-menu.js"></script>
+    <script src="./web components/user-info.js"></script>
+
     <title>Početna</title>
   </head>
 
   <body>
     <div class="layout-blok">
-      <div class="nav-column">
-        <div>
-          <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
-        </div>
-        <div>
-          <a href="vježbe.html"
-            ><i class="fa fa-child" aria-hidden="true"></i
-          ></a>
-        </div>
-        <div>
-          <a href="graf.html"
-            ><i class="fa fa-bar-chart" aria-hidden="true"></i
-          ></a>
-        </div>
-      </div>
+      <!-- TEMPLATE -->
+      <template id="nav-template">
+        <!-- CSS -->
+        <link rel="stylesheet" href="stylesheet.css" />
 
+        <!--FA ICON -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <div class="nav-column"></div>
+      </template>
+      <nav-menu></nav-menu>
       <div class="row">
+        <template id="user-template">
+          <div class="blok blok-podaci" id="blok-podaci">
+            <div class="blok-podaci__info" id="blok_korisnik_info"></div>
+            <div class="blok-podaci__gumbi">
+              <button class="btn" id="user_edit">Promijeni</button>
+              <br />
+              <button class="btn" id="user_delete">Izbriši</button>
+            </div>
+          </div>
+        </template>
+        <user-info></user-info>
         <div class="blok blok-podaci" id="blok-podaci">
           <div class="blok-podaci__info" id="blok_korisnik_info"></div>
           <div class="blok-podaci__gumbi">

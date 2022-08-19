@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- TITLE ICON -->
+    <!-- TITLE ICON -->
     <link rel="shortcut icon" href="./images/title-icon.png" />
 
     <!-- CSS -->
@@ -18,30 +18,32 @@
     />
 
     <title>Vježbe</title>
-    <script src="dateUtils.js"defer></script>
-    <script src="const.js" defer></script>
-    <script src="grapql.js" defer></script>
-    <script src="script.js" defer></script>
+
+    <!-- WEB COMPONENTS -->
+    <script src="./web components/nav-menu.js"></script>
+    <script src="./web components/big-title.js"></script>
+
   </head>
   <body>
     <div class="layout-blok">
-      <div class="nav-column">
-        <div>
-          <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
-        </div>
-        <div>
-          <a href="vježbe.html"
-            ><i class="fa fa-child" aria-hidden="true"></i
-          ></a>
-        </div>
-        <div>
-          <a href="graf.html"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
-        </div>
-      </div>
+
+      <!-- TEMPLATE -->
+      <template id="nav-template">
+        <!-- CSS -->
+        <link rel="stylesheet" href="stylesheet.css" />
+
+        <!--FA ICON -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <div class="nav-column"></div>
+      </template>
+      <nav-menu></nav-menu>
       <div class="row" id="row">
       <div id="unesi_korake"></div>
           <div class="blok-form">
-            <h1 class="blok-title">Sve vježbe</h1>
+            <big-title class="blok-title">Sve vježbe</big-title>
             <form action="?" method="post" id="search">
               <input
                 type="text"
@@ -67,6 +69,12 @@
         </div>
       </div>
     </div>
-    <div id="workout-list"></div>
+  
+
+    <!-- Scripts -->
+    <script src="dateUtils.js"defer></script>
+    <script src="const.js" defer></script>
+    <script src="grapql.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>
