@@ -27,12 +27,31 @@ const removeTime = (date) => {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
+function getDayOnCroatian(day) {
+  console.log(day);
+  if (day == "Sunday") {
+    return "Nedjelja";
+  } else if (day == "Monday") {
+    return "Ponedjeljak";
+  } else if (day == "Tuesday") {
+    return "Utorak";
+  } else if (day == "Wednesday") {
+    return "Srijeda";
+  } else if (day == "Thursday") {
+    return "Četvrtak";
+  } else if (day == "Friday") {
+    return "Petak";
+  } else if (day == "Saturday") {
+    return "Subota";
+  }
+}
+
 const daysInWeek = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  "Nedjelja",
+  "Ponedjeljak",
+  "Utorak",
+  "Srijeda",
+  "Četvrtak",
+  "Petak",
+  "Subota",
 ];
