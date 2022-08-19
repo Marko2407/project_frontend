@@ -30,15 +30,14 @@ async function getTodayWorkouts(weeklyOffset) {
         let dateCreated = removeTime(
           new Date(parseInt(day.workouts[0].dateCreated))
         );
-
         let date = createDateString(dateCreated);
         node.innerHTML = createRowWithAvailableDataView(
-          day.day,
+          getDayOnCroatian(day.day),
           date,
           day.workouts
         );
       } else {
-        node.innerHTML = createRowWithEmptyDataView(day.day);
+        node.innerHTML = createRowWithEmptyDataView(getDayOnCroatian(day.day));
       }
       document.getElementById("blok-proba").appendChild(node);
     });
@@ -65,17 +64,6 @@ function getWorkoutBySearch(searchInput) {
     getTodayWorkouts(number);
     console.log(EMPTY);
   }
-}
-
-function queryFetch(query, variables) {
-  return fetch(DEV_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: query,
-      variables: variables,
-    }),
-  }).then((res) => res.json());
 }
 
 //Kreiranje eventListenera
@@ -113,7 +101,7 @@ function renderSearchResultview(searchResult) {
       let date = createDateString(dateCreated);
       //Napisi koji je to dan i datum
       node.innerHTML = createRowWithAvailableDataView(
-        day.day,
+        getDayOnCroatian(day.day),
         date,
         day.workout
       );

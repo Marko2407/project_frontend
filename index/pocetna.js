@@ -42,6 +42,7 @@ async function getWorkoutsForToday() {
 async function getActivitiesWeekly() {
   const response = await getWeeklyActivities();
   response.activities.forEach((element) => {
+    console.log(element);
     yValues.push(element.totalSteps);
   });
   createChart("myChart", yValues);
@@ -69,7 +70,7 @@ async function init() {
 
 function renderWorkoutResponse(response) {
   document.getElementById("trenutni-dan").innerHTML =
-    daysInWeek[new Date().getDay()];
+    `Vježbe za ` + daysInWeek[new Date().getDay()].toLowerCase();
   if (response.length !== 0) {
     console.log(response);
     document.getElementById("container-vjezbe").innerHTML =
@@ -103,12 +104,12 @@ function createClickListeners() {
       //ako title nije prazan, kreiraj novu vjezbu
       if (listOfCreatedWorkout[i][0] !== "") {
         await createNewWorkout(listOfCreatedWorkout[i]);
-        location.reload();
       } else {
         //TODO('Add Alert to enter Title')
         console.log(PLEASE_ENTER_TITLE);
       }
     }
+    location.reload();
   });
 
   addNewUserModal.addEventListener("click", async (e) => {
@@ -189,7 +190,9 @@ function generateListItems(argument) {
 function createActivityRowView(activity) {
   return `
   <ul>
-    <li><h3 class="blok-podaci_-name1">${activity.day}</h3></li>
+    <li><h3 class="blok-podaci_-name1">Aktivnost u ${getDayOnCroatian(
+      activity.day
+    ).toLowerCase()}</h3></li>
     <li>${activity.totalSteps}</li>
   </ul> 
 `;
