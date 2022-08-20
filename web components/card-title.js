@@ -11,7 +11,7 @@ class CardTitle extends HTMLElement {
     this.shadowRoot.innerHTML = `
     <style>
     h3 {
-       padding-bottom: 2rem;
+   padding-bottom: 1.2rem;
   font-size: 1.8rem;
     }
     </style>
