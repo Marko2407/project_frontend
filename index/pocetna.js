@@ -73,11 +73,9 @@ async function init() {
 }
 
 function renderWorkoutResponse(response) {
-  document.getElementById(
-    'trenutni-dan'
-  ).innerHTML = `<card-title title="Vježbe za ${daysInWeek[
-    new Date().getDay()
-  ].toLowerCase()}"></card-title>`;
+  document.getElementById('trenutni-dan').innerHTML = `<card-title title="${
+    daysInWeek[new Date().getUTCDay()]
+  }"></card-title>`;
   if (response.length !== 0) {
     console.log(response);
     document.getElementById('container-vjezbe').innerHTML =
@@ -186,9 +184,7 @@ function createActivityRowView(activity) {
   return `
   <ul>
     <li>
-    <card-title title = "Aktivnost u ${getDayOnCroatian(
-      activity.day
-    ).toLowerCase()}" ></card-title>
+    <card-title title = "${getDayOnCroatian(activity.day)}" ></card-title>
    </li>
     <li>${activity.totalSteps}</li>
   </ul> 

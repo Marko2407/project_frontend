@@ -15,11 +15,11 @@ function createDateString(dateCreated) {
   console.log(dateCreated);
   return (
     dateCreated.getDate() +
-    "." +
+    '.' +
     (dateCreated.getMonth() + 1) +
-    "." +
+    '.' +
     dateCreated.getFullYear() +
-    "."
+    '.'
   );
 }
 
@@ -29,29 +29,29 @@ const removeTime = (date) => {
 
 function getDayOnCroatian(day) {
   console.log(day);
-  if (day == "Sunday") {
-    return "Nedjelja";
-  } else if (day == "Monday") {
-    return "Ponedjeljak";
-  } else if (day == "Tuesday") {
-    return "Utorak";
-  } else if (day == "Wednesday") {
-    return "Srijeda";
-  } else if (day == "Thursday") {
-    return "Četvrtak";
-  } else if (day == "Friday") {
-    return "Petak";
-  } else if (day == "Saturday") {
-    return "Subota";
+  if (day == 'Sunday') {
+    return 'Nedjelja';
+  } else if (day == 'Monday') {
+    return 'Ponedjeljak';
+  } else if (day == 'Tuesday') {
+    return 'Utorak';
+  } else if (day == 'Wednesday') {
+    return 'Srijeda';
+  } else if (day == 'Thursday') {
+    return 'Četvrtak';
+  } else if (day == 'Friday') {
+    return 'Petak';
+  } else if (day == 'Saturday') {
+    return 'Subota';
   }
 }
 
 const daysInWeek = [
-  "Nedjelja",
-  "Ponedjeljak",
-  "Utorak",
-  "Srijeda",
-  "Četvrtak",
-  "Petak",
-  "Subota",
+  'Nedjelja',
+  'Ponedjeljak',
+  'Utorak',
+  'Srijeda',
+  'Četvrtak',
+  'Petak',
+  'Subota',
 ];
