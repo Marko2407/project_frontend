@@ -56,7 +56,7 @@ body {
 
 .blok-podaci__info > ul > li {
   list-style-type: none;
-  padding: 0.5rem 0 0.5rem 0;
+  /* padding: 0.5rem 0 0.5rem 0; */
 }
 
 .blok-podaci__gumbi {
