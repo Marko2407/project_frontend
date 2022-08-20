@@ -1,18 +1,12 @@
 const templateUser = document.createElement('template');
 templateUser.innerHTML += `
         <link rel="stylesheet" href="stylesheet.css" />
-        <style>
-        .user-info {
-          width: 100%;
-        }
-        </style>
-        <div class="user-info">
+      
         <div class="blok-podaci__info" id="blok_korisnik_info"></div>
         <div class="blok-podaci__gumbi">
           <button class="btn" id="user_edit">Promijeni</button>
           <br />
           <button class="btn" id="user_delete">Izbriši</button>
-        </div>
         </div>
         `;
 

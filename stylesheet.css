@@ -282,6 +282,10 @@ table tr td {
   font-size: 1.2rem;
 }
 
+#dateRange {
+  font-size: 1.2rem;
+}
+
 /* ---------- BLOK FORMA ---------- */
 .blok-form {
   text-align: center;

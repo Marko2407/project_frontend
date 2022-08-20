@@ -1,12 +1,12 @@
-const graf = document.getElementById("graf");
-const grafInfo = document.getElementById("blok-graf__info");
-const prevM = document.getElementById("left");
-const nextM = document.getElementById("right");
-const dateRange = document.getElementById("dateRange");
+const graf = document.getElementById('graf');
+const grafInfo = document.getElementById('blok-graf__info');
+const prevM = document.getElementById('left');
+const nextM = document.getElementById('right');
+const dateRange = document.getElementById('dateRange');
 
 let monthCounter = 0;
 
-const blokGraf = document.getElementById("generiranje-grafa");
+const blokGraf = document.getElementById('generiranje-grafa');
 let id = [];
 
 async function getWeeklyActivitiesl(date = new Date()) {
@@ -30,8 +30,8 @@ async function getWeeklyActivitiesl(date = new Date()) {
   )} - ${createDateString(lastDayOfMonth)}`;
   blokGraf.innerHTML = ``;
   result.forEach((element) => {
-    const node = document.createElement("div");
-    node.classList.add("blok");
+    const node = document.createElement('div');
+    node.classList.add('blok');
     node.innerHTML = createRowWithAvailableStepsDataView(
       element.week,
       element.totalSteps,
@@ -47,12 +47,12 @@ async function getWeeklyActivitiesl(date = new Date()) {
 }
 
 function createClickListeners() {
-  prevM.addEventListener("click", () => {
+  prevM.addEventListener('click', () => {
     monthCounter--;
     console.log(monthCounter);
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
-  nextM.addEventListener("click", () => {
+  nextM.addEventListener('click', () => {
     monthCounter++;
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
@@ -73,8 +73,8 @@ function createRowWithAvailableStepsDataView(week, totalSteps, weekNumber) {
     id.push({ chartId: week, index: weekNumber });
     return `
         <div class="blok-naslov">
-          <h3 class="blok-naslov">${week}</h3>
-          <h4 id="steps">${totalSteps}</h4>
+          <h2 class="blok-naslov">${week}</h2>
+          <p id="steps">${totalSteps}</p>
           <hr class="line">
         </div>
         <div  class="graf">
@@ -86,9 +86,10 @@ function createRowWithAvailableStepsDataView(week, totalSteps, weekNumber) {
         <div class="blok-naslov">
           <br>
           <br>
-          <h3 id="blok-naslov">${week}</h3>
+          <h2 id="blok-naslov">${week}</h2>
           <br>
-          <p>No Activities for this week! </p>
+          <br>
+          <p>Nema aktivnosti za ovaj tjedan!</p>
              <br>
           <br>
         </div>
