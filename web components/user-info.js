@@ -1,5 +1,6 @@
 const templateUser = document.createElement("template");
 templateUser.innerHTML += `
+  <div class = "blok-podaci">
         <link rel="stylesheet" href="stylesheet.css" />
         <div class="blok-podaci__info" id="blok_korisnik_info"></div>
         <div class="blok-podaci__gumbi">
