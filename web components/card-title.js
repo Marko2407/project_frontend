@@ -1,15 +1,13 @@
 class CardTitle extends HTMLElement {
-  get title() {
-    return this.title || 'TITLEE';
-  }
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
   }
   connectedCallback() {
     this.render();
   }
   render() {
+    const { shadowRoot } = this;
     this.shadowRoot.innerHTML = `
     <style>
     h3 {
@@ -17,9 +15,9 @@ class CardTitle extends HTMLElement {
   font-size: 1.8rem;
     }
     </style>
-    <h3>${this.getAttribute('title')}</h3>
+    <h3>${this.getAttribute("title")}</h3>
     `;
   }
 }
 
-customElements.define('card-title', CardTitle);
+customElements.define("card-title", CardTitle);
