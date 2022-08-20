@@ -1,7 +1,15 @@
 class BigTitle extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML = `
+    this.attachShadow({ mode: "open" });
+  }
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    const { shadowRoot } = this;
+    this.shadowRoot.innerHTML = `
     <style>
       .blok-title {
       display: inline-block;
@@ -10,9 +18,9 @@ class BigTitle extends HTMLElement {
       width: 30rem;
       }
     </style>
-    <h1 class="blok-title"></h1>
+    <h1 class="blok-title">${this.getAttribute("title")}</h1>
  `;
   }
 }
 
-window.customElements.define('big-title', BigTitle);
+customElements.define("big-title", BigTitle);

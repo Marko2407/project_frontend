@@ -20,7 +20,6 @@
 
     <!-- WEB COMPONENTS -->
     <script src="./web components/nav-menu.js"></script>
-    <script src="./web components/user-info.js"></script>
     <script src="./web components/card-title.js"></script>
 
     <title>Početna</title>
@@ -28,39 +27,11 @@
 
   <body>
     <div class="layout-blok">
-      <!-- TEMPLATE -->
-      <template id="nav-template">
-        <!-- CSS -->
-        <link rel="stylesheet" href="stylesheet.css" />
-
-        <!--FA ICON -->
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <div class="nav-column"></div>
-      </template>
       <nav-menu></nav-menu>
       <div class="row">
-        <template id="user-template">
-          <div class="blok blok-podaci" id="blok-podaci">
-            <div class="blok-podaci__info" id="blok_korisnik_info"></div>
-            <div class="blok-podaci__gumbi">
-              <button class="btn" id="user_edit">Promijeni</button>
-              <br />
-              <button class="btn" id="user_delete">Izbriši</button>
-            </div>
-          </div>
-        </template>
-        <user-info></user-info>
-        <div class="blok blok-podaci" id="blok-podaci">
-          <div class="blok-podaci__info" id="blok_korisnik_info"></div>
-          <div class="blok-podaci__gumbi">
-            <button class="btn" id="user_edit">Promijeni</button>
-            <br />
-            <button class="btn" id="user_delete">Izbriši</button>
-          </div>
-        </div>
+        <!--Korisnik DIV  -->
+        <div class="blok blok-podaci" id="blok-podaci"></div>
+
         <div class="blok blok-grafovi">
           <div class="blok-grafovi__1">
             <div class="blok-podaci__info" id="blok-graf_info"></div>
@@ -196,6 +167,7 @@
       </div>
     </div>
 
+    <script src="./web components/user-info.js"></script>
     <!-- JS -->
     <script src="dateUtils.js" defer></script>
     <script src="index/indexActivities.js"></script>
