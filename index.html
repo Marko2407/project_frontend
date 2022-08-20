@@ -22,6 +22,7 @@
     <script src="./web components/nav-menu.js"></script>
     <script src="./web components/card-title.js"></script>
     <script src="./web components/user-info.js"></script>
+    <script src="./web components/graph-info.js"></script>
 
     <title>Početna</title>
   </head>
@@ -33,20 +34,8 @@
         <!--Korisnik DIV  -->
         <div class="blok" id="blok-podaci"></div>
 
-        <div class="blok blok-grafovi">
-          <div class="blok-grafovi__1">
-            <div class="blok-podaci__info" id="blok-graf_info"></div>
-            <div class="blok-grafovi__gumbi">
-              <input type="number" name="koraci" />
-              <button class="btn" id="unesi_korake">Unesi</button>
-            </div>
-          </div>
-
-          <br />
-          <div class="graf" id="graf">
-            <!-- CANVAS -->
-            <canvas id="myChart" style="width: 100%; max-width: 600px"></canvas>
-          </div>
+        <div class="blok" , id="blok-graf">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         </div>
 
         <!-- <h2>Odrađene vježbe u trenutnom danu</h2> -->
