@@ -70,7 +70,7 @@ body {
 /* ---------- BLOK 2 GRAFOVI ---------- */
 
 .blok-grafovi {
-  padding: 3rem;
+  padding: 0rem;
 }
 
 .blok-grafovi__1 {
@@ -120,7 +120,7 @@ h3.blok-podaci_-name1 {
 }
 
 .blok-vjezbe__dani #trenutni-dan {
-  padding-bottom: 1.2rem;
+  /* padding-bottom: 1.2rem; */
   font-size: 1.8rem;
 }
 

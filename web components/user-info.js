@@ -1,4 +1,4 @@
-const templateUser = document.createElement('template');
+const templateUser = document.createElement("template");
 templateUser.innerHTML += `
   <div class = "blok-podaci">
         <link rel="stylesheet" href="stylesheet.css" />
@@ -22,8 +22,8 @@ class UserInfo extends HTMLElement {
 
   constructor() {
     super();
-    this._userI = '';
-    this.attachShadow({ mode: 'open' });
+    this._userI = "";
+    this.attachShadow({ mode: "open" });
   }
   connectedCallback() {
     this.render();
@@ -32,32 +32,39 @@ class UserInfo extends HTMLElement {
     console.log(this.userI);
     const { shadowRoot } = this;
     const instance = document.importNode(templateUser.content, true);
-    instance.querySelector('#blok_korisnik_info').innerHTML = `
-  <ul>
-    <li><card-title title= "${this.userI.prezimeKorisnika} ${this.userI.imeKorisnika}"></card-title></li>
-    <li>${this.userI.visinaKorisnika} cm</li>
-    <li>${this.userI.tezinaKorisnika}  kg</li>
-  </ul> 
-`;
+    instance.querySelector("#blok_korisnik_info").innerHTML = createUserRowView(
+      this.userI
+    );
 
     setClickListeners(instance);
     shadowRoot.appendChild(instance);
   }
 }
 
+//Generiranje UI-a
+function createUserRowView(user) {
+  return `
+  <ul>
+    <li><card-title title= "${user.prezimeKorisnika} ${user.imeKorisnika}"></card-title></li>
+    <li>${user.visinaKorisnika} cm</li>
+    <li>${user.tezinaKorisnika} kg</li>
+  </ul> 
+`;
+}
+
 function setClickListeners(instance) {
-  const userModalContainer = document.getElementById('user_modal_container');
-  instance.querySelector('#user_edit').addEventListener('click', () => {
+  const userModalContainer = document.getElementById("user_modal_container");
+  instance.querySelector("#user_edit").addEventListener("click", () => {
     fillUserInfo();
-    userModalContainer.classList.add('show');
+    userModalContainer.classList.add("show");
   });
 
   instance
-    .querySelector('#user_delete')
-    .addEventListener('click', async (e) => {
+    .querySelector("#user_delete")
+    .addEventListener("click", async (e) => {
       await deleteUser();
       location.reload();
     });
 }
 
-customElements.define('user-info', UserInfo);
+customElements.define("user-info", UserInfo);

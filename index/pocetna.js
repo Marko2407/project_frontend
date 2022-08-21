@@ -1,5 +1,4 @@
 const userModalContainer = document.getElementById("user_modal_container");
-const openWorkoutModal = document.getElementById("open");
 const workoutModalContainer = document.getElementById("modal_container");
 const closeWorkoutModal = document.getElementById("close");
 const closeUserModal = document.getElementById("close_user_modal");
@@ -36,8 +35,6 @@ async function getActivityForToday() {
     const userContainer = document.createElement("graph-info");
     userContainer.graphInfo = response;
     container.appendChild(userContainer);
-    //kreirati komponentu
-    //grafInfo.innerHTML = createActivityRowView(response);
   } else {
     await createNewTodayActivity(0);
   }
@@ -45,6 +42,7 @@ async function getActivityForToday() {
 
 async function getWorkoutsForToday() {
   const response = await getTodayWorkouts();
+  getActivitiesWeekly();
   renderWorkoutResponse(response);
 }
 
@@ -56,16 +54,14 @@ async function getActivitiesWeekly() {
   });
 
   const container = document.getElementById("blok-graf");
-  const userContainer = document.createElement("graph-info-weekly");
-  userContainer.yValues = yValues;
-  container.appendChild(userContainer);
+  const activityContainer = document.createElement("graph-info-weekly");
+  activityContainer.yValues = { chartId: "#myChart", values: yValues };
+  container.appendChild(activityContainer);
 }
 
 async function updateSteps(koraci) {
   await updateTodaySteps(koraci);
-  yValues = [];
-  await getActivityForToday();
-  await getActivitiesWeekly();
+  location.reload();
 }
 
 async function init() {
@@ -73,7 +69,6 @@ async function init() {
   if (isUserExist) {
     getWorkoutsForToday();
     getActivityForToday();
-    getActivitiesWeekly();
   } else {
     console.log(NO_CREATED_USER);
     userModalContainer.classList.add("show");
@@ -82,27 +77,14 @@ async function init() {
 }
 
 function renderWorkoutResponse(response) {
-  document.getElementById("trenutni-dan").innerHTML = `<card-title title="${
-    daysInWeek[new Date().getUTCDay()]
-  }"></card-title>`;
-  if (response.length !== 0) {
-    console.log(response);
-    document.getElementById("container-vjezbe").innerHTML =
-      createWorkoutRowView(response);
-  } else {
-    document.getElementById("container-vjezbe").innerHTML =
-      createRowWithEmptyDataView();
-    // UBACITI NEKI POPUP ILI SLICNO TIPA ALERT
-    console.log(EMPTY_DATA);
-  }
+  const container = document.getElementById("blok-vjezbe");
+  const activityContainer = document.createElement("workout-info");
+  activityContainer.workoutInfo = response;
+  container.appendChild(activityContainer);
 }
 
 // MODAL
 function createClickListeners() {
-  openWorkoutModal.addEventListener("click", () => {
-    workoutModalContainer.classList.add("show");
-  });
-
   closeWorkoutModal.addEventListener("click", () => {
     workoutModalContainer.classList.remove("show");
   });
@@ -140,28 +122,6 @@ function createClickListeners() {
     }
     location.reload();
   });
-
-  // unesiKorake.addEventListener("click", async (e) => {
-  //   e.preventDefault();
-  //   const koraci = parseInt(inputKoraci.value);
-  //   console.log(koraci == NaN);
-  //   if (!isNaN(koraci)) {
-  //     await updateSteps(koraci);
-  //   } else {
-  //     console.log("Unesi korake");
-  //   }
-  // });
-}
-
-//Generiranje UI-a
-function createUserRowView(user) {
-  return `
-  <ul>
-    <li><card-title title= "${user.prezimeKorisnika} ${user.imeKorisnika}"></card-title></li>
-    <li>${user.visinaKorisnika} cm</li>
-    <li>${user.tezinaKorisnika} kg</li>
-  </ul> 
-`;
 }
 
 function createWorkoutRowView(workouts) {
@@ -172,7 +132,7 @@ function createWorkoutRowView(workouts) {
   `;
 }
 
-function createRowWithEmptyDataView(day) {
+function createRowWithEmptyDataView() {
   return `
        <div class="blok-naslov">
          <p>${NO_WORKOUTS_AVAILABLE}</p>
@@ -187,17 +147,6 @@ function generateListItems(argument) {
     items += `<li>${element.title}</li>`;
   });
   return items;
-}
-
-function createActivityRowView(activity) {
-  return `
-  <ul>
-    <li>
-    <card-title title = "${getDayOnCroatian(activity.day)}" ></card-title>
-   </li>
-    <li>${activity.totalSteps}</li>
-  </ul> 
-`;
 }
 
 //Na kreiranju stranice

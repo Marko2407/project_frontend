@@ -32,66 +32,44 @@ class GraphInfo extends HTMLElement {
     this.render();
   }
   render() {
+    this.attachShadow.innerHTML = "";
     console.log(this.graphInfo);
     const { shadowRoot } = this;
     const instance = document.importNode(templateGraph.content, true);
-    instance.querySelector("#blok-graf_info").innerHTML = ` 
-    <ul>
-    <li>
-    <card-title title = "${getDayOnCroatian(this.graphInfo.day)}" ></card-title>
-   </li>
-    <li>${this.graphInfo.totalSteps}</li>
-  </ul> `;
+    instance.querySelector("#blok-graf_info").innerHTML = createActivityRowView(
+      this.graphInfo
+    );
 
-    setClickListeners(instance);
+    setClickListenersGraphs(instance);
     shadowRoot.appendChild(instance);
   }
 }
 
-function setClickListeners(instance) {}
+function createActivityRowView(activity) {
+  return `
+  <ul>
+    <li>
+    <card-title title = "${getDayOnCroatian(activity.day)}" ></card-title>
+   </li>
+    <li>${activity.totalSteps}</li>
+  </ul> 
+`;
+}
+
+function setClickListenersGraphs(instance) {
+  const unesiKorake = instance.querySelector("#unesi_korake");
+  const inputKoraci = instance.querySelector("input[name = 'koraci']");
+
+  unesiKorake.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const koraci = parseInt(inputKoraci.value);
+    console.log(koraci == NaN);
+    if (!isNaN(koraci)) {
+      await updateSteps(koraci);
+    } else {
+      console.log("Unesi korake");
+    }
+  });
+}
 
 customElements.define("graph-info", GraphInfo);
-
-//Tjedni graf
-const templateGraphWeekly = document.createElement("template");
-templateGraphWeekly.innerHTML += `
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <link rel="stylesheet" href="stylesheet.css" />
-   <br />
-          <div class="graf" id="graf">
-            <!-- CANVAS -->
-            <canvas id="myChart" style="width: 100%; max-width: 600px"></canvas>
-          </div>
-        `;
-
-class GraphInfoWeekly extends HTMLElement {
-  get yValues() {
-    return this._yValues;
-  }
-
-  set yValues(values) {
-    this._yValues = values;
-  }
-
-  constructor() {
-    super();
-    this._yValues = "";
-    this.attachShadow({ mode: "open" });
-  }
-  connectedCallback() {
-    this.render();
-  }
-  render() {
-    console.log(this.yValues);
-    const { shadowRoot } = this;
-    const instance = document.importNode(templateGraphWeekly.content, true);
-    const ctx = instance.querySelector("#myChart");
-    setClickListeners(instance);
-    shadowRoot.appendChild(instance);
-    createChart(ctx, this.yValues);
-  }
-}
-
-function setClickListeners(instance) {}
-
-customElements.define("graph-info-weekly", GraphInfoWeekly);
