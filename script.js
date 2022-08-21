@@ -9,10 +9,26 @@ const rightArrow = document.getElementById("right");
 let number = 0;
 let items = "";
 
+JsLoadingOverlay.setOptions({
+  overlayBackgroundColor: "#666666",
+  overlayOpacity: 0.6,
+  spinnerIcon: "ball-spin-clockwise",
+  spinnerColor: "#000",
+  spinnerSize: "2x",
+  overlayIDName: "overlay",
+  spinnerIDName: "spinner",
+  offsetY: 0,
+  offsetX: 0,
+  lockScroll: false,
+  containerID: null,
+});
+
 // BLOKOVI S VJEŽBAMA
 const blokVjezbi = document.getElementById("row");
 
 async function getWeeklyWorkouts(weeklyOffset) {
+  console.log(weeklyOffset);
+  JsLoadingOverlay.show();
   date = subtractWeeks(weeklyOffset);
 
   document.getElementById("blok-proba").innerHTML = ``;
@@ -32,6 +48,7 @@ async function getWeeklyWorkouts(weeklyOffset) {
       NO_WORKOUTS_AVAILABLE
     );
   }
+  JsLoadingOverlay.hide();
 }
 
 function getWorkoutBySearch(searchInput) {
@@ -67,10 +84,12 @@ function createClickListeners() {
 
   searchEnter.addEventListener("submit", async (e) => {
     e.preventDefault();
+    JsLoadingOverlay.show();
     const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
     if (getWorkoutBySearchInput != null) {
       renderSearchResultView(getWorkoutBySearchInput.getWorkoutBySearchInput);
     }
+    JsLoadingOverlay.hide();
   });
 }
 //Kreiranje UI-a

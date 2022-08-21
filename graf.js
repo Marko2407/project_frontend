@@ -6,10 +6,25 @@ const dateRange = document.getElementById("dateRange");
 
 let monthCounter = 0;
 
+JsLoadingOverlay.setOptions({
+  overlayBackgroundColor: "#666666",
+  overlayOpacity: 0.6,
+  spinnerIcon: "ball-spin-clockwise",
+  spinnerColor: "#000",
+  spinnerSize: "2x",
+  overlayIDName: "overlay",
+  spinnerIDName: "spinner",
+  offsetY: 0,
+  offsetX: 0,
+  lockScroll: false,
+  containerID: null,
+});
+
 const blokGraf = document.getElementById("generiranje-grafa");
 let id = [];
 
 async function getWeeklyActivitiesl(date = new Date()) {
+  JsLoadingOverlay.show();
   const a = await queryFetch(GET_MONTHLY_ACTIVITIES_QUERY, {
     date: date.toString(),
   });
@@ -36,6 +51,7 @@ async function getWeeklyActivitiesl(date = new Date()) {
     weekNumber++;
     blokGraf.appendChild(graphsContainer);
   });
+  JsLoadingOverlay.hide();
 }
 
 function createClickListeners() {

@@ -10,6 +10,22 @@ const inputKoraci = document.querySelector("input[name = 'koraci']");
 const grafInfo = document.getElementById("blok-graf_info");
 const blokGraf = document.getElementById("blok-graf");
 
+JsLoadingOverlay.setOptions({
+  overlayBackgroundColor: "#666666",
+  overlayOpacity: 0.6,
+  spinnerIcon: "ball-spin-clockwise",
+  spinnerColor: "#000",
+  spinnerSize: "2x",
+  overlayIDName: "overlay",
+  spinnerIDName: "spinner",
+  offsetY: 0,
+  offsetX: 0,
+  lockScroll: false,
+  containerID: null,
+});
+
+JsLoadingOverlay.show();
+
 let yValues = [];
 
 let workoutResponse = null;
@@ -31,6 +47,7 @@ async function init() {
     console.log(NO_CREATED_USER);
     userModalContainer.classList.add("show");
   }
+  JsLoadingOverlay.hide();
 }
 
 async function getUser() {
@@ -128,6 +145,7 @@ function createClickListeners() {
 
   addNewWorkoutsModal.addEventListener("click", async (e) => {
     e.preventDefault();
+    JsLoadingOverlay.show();
     const listOfCreatedWorkout = createWorkoutList();
     for (let i = 0; i < listOfCreatedWorkout.length; i++) {
       //ako title nije prazan, kreiraj novu vjezbu
@@ -143,6 +161,7 @@ function createClickListeners() {
 
   addNewUserModal.addEventListener("click", async (e) => {
     e.preventDefault();
+    JsLoadingOverlay.show();
     mapUserInputs();
     if (user.idKorisnika == null) {
       if (user.imeKorisnika !== "" || user.prezimeKorisnika !== "") {

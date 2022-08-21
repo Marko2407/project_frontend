@@ -62,6 +62,7 @@ function setClickListenersGraphs(instance) {
 
   unesiKorake.addEventListener("click", async (e) => {
     e.preventDefault();
+    JsLoadingOverlay.show();
     const koraci = parseInt(inputKoraci.value);
     console.log(koraci == NaN);
     if (!isNaN(koraci)) {
