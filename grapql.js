@@ -147,7 +147,7 @@ query GetWorkoutBySearchInput($searchInput: String) {
     getWorkoutBySearchInput(searchInput: $searchInput) {
       day
       date
-      workout {
+      workouts {
         id
         day
         title

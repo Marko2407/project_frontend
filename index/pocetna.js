@@ -41,7 +41,7 @@ async function getActivityForToday() {
 }
 
 async function getWorkoutsForToday() {
-  const response = await getTodayWorkouts();
+  const response = await getWeeklyWorkouts();
   getActivitiesWeekly();
   renderWorkoutResponse(response);
 }
@@ -122,31 +122,6 @@ function createClickListeners() {
     }
     location.reload();
   });
-}
-
-function createWorkoutRowView(workouts) {
-  return `
-    <ul>
-      ${generateListItems(workouts)}
-    </ul>
-  `;
-}
-
-function createRowWithEmptyDataView() {
-  return `
-       <div class="blok-naslov">
-         <p>${NO_WORKOUTS_AVAILABLE}</p>
-       </div>
-     `;
-}
-
-// PRIKAZ VJEZBI U TRENUTNOM DANU
-function generateListItems(argument) {
-  let items = "";
-  argument.forEach((element) => {
-    items += `<li>${element.title}</li>`;
-  });
-  return items;
 }
 
 //Na kreiranju stranice

@@ -36,7 +36,7 @@ class UserInfo extends HTMLElement {
       this.userI
     );
 
-    setClickListeners(instance);
+    setClickListenersUser(instance);
     shadowRoot.appendChild(instance);
   }
 }
@@ -52,7 +52,7 @@ function createUserRowView(user) {
 `;
 }
 
-function setClickListeners(instance) {
+function setClickListenersUser(instance) {
   const userModalContainer = document.getElementById("user_modal_container");
   instance.querySelector("#user_edit").addEventListener("click", () => {
     fillUserInfo();
