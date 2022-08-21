@@ -30,9 +30,10 @@ class GraphInfoWeekly extends HTMLElement {
     console.log(this.yValues);
     const { shadowRoot } = this;
     const instance = document.importNode(templateGraphWeekly.content, true);
-    const ctx = instance.querySelector(this.yValues.chartId);
     setClickListeners(instance);
+    const ctx = instance.querySelector("#myChart");
     shadowRoot.appendChild(instance);
+    console.log(ctx);
     createChart(ctx, this.yValues.values);
   }
 }

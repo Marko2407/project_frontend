@@ -4,6 +4,7 @@ let xValues = ["PON", "UTO", "SRI", "ČET", "PET", "SUB", "NED"];
 let barColors = ["red", "green", "blue", "orange", "brown", "yellow", "pink"];
 
 function createChart(id, valuesY) {
+  console.log(id);
   new Chart(id, {
     type: "bar",
     data: {

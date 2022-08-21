@@ -12,16 +12,31 @@ const blokGraf = document.getElementById("blok-graf");
 
 let yValues = [];
 
+let workoutResponse = null;
+let activityWeeklyResponse = null;
+let activityDailyResponse = null;
+
+//Dohvacaju se svi podatci odjednom i prikazuju se tek kad su svi dohvaceni
+async function init() {
+  const isUserExist = await getUser();
+  if (isUserExist) {
+    const response =
+      (await getWorkoutsForToday()) &&
+      (await getActivitiesWeekly()) &&
+      (await getActivityForToday());
+    if (response) {
+      renderData();
+    }
+  } else {
+    console.log(NO_CREATED_USER);
+    userModalContainer.classList.add("show");
+  }
+}
+
 async function getUser() {
   const response = await getCurrentUser();
   console.log(response);
   if (response != null) {
-    console.log(CREATED_USER + JSON.stringify(user));
-    const container = document.getElementById("blok-podaci");
-    const userContainer = document.createElement("user-info");
-    userContainer.userI = user;
-    container.appendChild(userContainer);
-    // userBlok.innerHTML = createUserRowView(user);
     return true;
   } else {
     return false;
@@ -31,32 +46,38 @@ async function getUser() {
 async function getActivityForToday() {
   const response = await getTodayActivity();
   if (response != null) {
-    const container = document.getElementById("blok-graf");
-    const userContainer = document.createElement("graph-info");
-    userContainer.graphInfo = response;
-    container.appendChild(userContainer);
+    if (response != null) {
+      activityDailyResponse = response;
+      return true;
+    }
   } else {
     await createNewTodayActivity(0);
+    return false;
   }
 }
 
 async function getWorkoutsForToday() {
-  const response = await getWeeklyWorkouts();
-  getActivitiesWeekly();
-  renderWorkoutResponse(response);
+  const response = await getTodayWorkouts();
+  if (response != null) {
+    workoutResponse = response;
+    return true;
+  } else {
+    return false;
+  }
 }
 
 async function getActivitiesWeekly() {
   const response = await getWeeklyActivities();
-  response.activities.forEach((element) => {
-    console.log(element);
-    yValues.push(element.totalSteps);
-  });
-
-  const container = document.getElementById("blok-graf");
-  const activityContainer = document.createElement("graph-info-weekly");
-  activityContainer.yValues = { chartId: "#myChart", values: yValues };
-  container.appendChild(activityContainer);
+  if (response != null) {
+    response.activities.forEach((element) => {
+      console.log(element);
+      yValues.push(element.totalSteps);
+    });
+    activityWeeklyResponse = response;
+    return true;
+  } else {
+    return false;
+  }
 }
 
 async function updateSteps(koraci) {
@@ -64,16 +85,10 @@ async function updateSteps(koraci) {
   location.reload();
 }
 
-async function init() {
-  const isUserExist = await getUser();
-  if (isUserExist) {
-    getWorkoutsForToday();
-    getActivityForToday();
-  } else {
-    console.log(NO_CREATED_USER);
-    userModalContainer.classList.add("show");
-    //Open modal for creating user
-  }
+function renderData() {
+  renderUserResponse(user);
+  renderWorkoutResponse(workoutResponse);
+  renderActivityResponse(activityWeeklyResponse, activityDailyResponse);
 }
 
 function renderWorkoutResponse(response) {
@@ -83,6 +98,24 @@ function renderWorkoutResponse(response) {
   container.appendChild(activityContainer);
 }
 
+function renderActivityResponse(activityWeekly, activityDaily) {
+  const container = document.getElementById("blok-graf");
+  const userContainer = document.createElement("graph-info");
+  userContainer.graphInfo = activityDaily;
+  container.appendChild(userContainer);
+
+  const activityContainer = document.createElement("graph-info-weekly");
+  activityContainer.yValues = { chartId: "#myChart", values: yValues };
+  container.appendChild(activityContainer);
+}
+
+function renderUserResponse(user) {
+  console.log(CREATED_USER + JSON.stringify(user));
+  const container = document.getElementById("blok-podaci");
+  const userContainer = document.createElement("user-info");
+  userContainer.userI = user;
+  container.appendChild(userContainer);
+}
 // MODAL
 function createClickListeners() {
   closeWorkoutModal.addEventListener("click", () => {
