@@ -1,7 +1,7 @@
 //Tjedni graf
-const templateGraphMonthly = document.createElement("template");
+const templateGraphMonthly = document.createElement('template');
 templateGraphMonthly.innerHTML += `
-    <link rel="stylesheet" href="stylesheet.css" />
+    <link rel="stylesheet" href="../styles/stylesheet.css" />
    <div class = "blok" id="blok_graphs">
    <div id="graphs"></div>
       <div class="graf" id="graf">
@@ -22,8 +22,8 @@ class GraphInfoWMonthly extends HTMLElement {
 
   constructor() {
     super();
-    this._element = "";
-    this.attachShadow({ mode: "open" });
+    this._element = '';
+    this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
     this.render();
@@ -35,7 +35,7 @@ class GraphInfoWMonthly extends HTMLElement {
     if (this.element.element.totalSteps != 0) {
       renderAvailableData(instance, this.element.element);
     } else {
-      instance.querySelector("#blok_graphs").innerHTML =
+      instance.querySelector('#blok_graphs').innerHTML =
         createRowWithNullStepsData(this.element.element.week);
     }
 
@@ -44,9 +44,9 @@ class GraphInfoWMonthly extends HTMLElement {
 }
 
 function renderAvailableData(instance, element) {
-  instance.querySelector("#graphs").innerHTML =
+  instance.querySelector('#graphs').innerHTML =
     createRowWithAvailableStepsDataView(element.week, element.totalSteps);
-  const ctxa = instance.querySelector("#myChart");
+  const ctxa = instance.querySelector('#myChart');
   let values = [];
   element.weeklyActivities.forEach((element) => {
     values.push(element.totalSteps);
@@ -79,4 +79,4 @@ function createRowWithNullStepsData(week) {
  `;
 }
 
-customElements.define("graph-info-monthly", GraphInfoWMonthly);
+customElements.define('graph-info-monthly', GraphInfoWMonthly);

@@ -1,7 +1,7 @@
 //Tjedni graf
-const templateGraphWeekly = document.createElement("template");
+const templateGraphWeekly = document.createElement('template');
 templateGraphWeekly.innerHTML += `
-    <link rel="stylesheet" href="stylesheet.css" />
+    <link rel="stylesheet" href="../styles/stylesheet.css" />
    <br />
           <div class="graf" id="graf">
             <!-- CANVAS -->
@@ -20,8 +20,8 @@ class GraphInfoWeekly extends HTMLElement {
 
   constructor() {
     super();
-    this._yValues = "";
-    this.attachShadow({ mode: "open" });
+    this._yValues = '';
+    this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
     this.render();
@@ -31,7 +31,7 @@ class GraphInfoWeekly extends HTMLElement {
     const { shadowRoot } = this;
     const instance = document.importNode(templateGraphWeekly.content, true);
     setClickListeners(instance);
-    const ctx = instance.querySelector("#myChart");
+    const ctx = instance.querySelector('#myChart');
     shadowRoot.appendChild(instance);
     console.log(ctx);
     createChart(ctx, this.yValues.values);
@@ -40,4 +40,4 @@ class GraphInfoWeekly extends HTMLElement {
 
 function setClickListeners(instance) {}
 
-customElements.define("graph-info-weekly", GraphInfoWeekly);
+customElements.define('graph-info-weekly', GraphInfoWeekly);

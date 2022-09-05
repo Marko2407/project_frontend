@@ -1,6 +1,6 @@
-const templateWorkoutWeeklyInfo = document.createElement("template");
+const templateWorkoutWeeklyInfo = document.createElement('template');
 templateWorkoutWeeklyInfo.innerHTML += `
-  <link rel="stylesheet" href="stylesheet.css" />
+  <link rel="stylesheet" href="../styles/stylesheet.css" />
     <div class = "blok" id= "blok_workout"></div>`;
 
 class WorkoutWeeklyInfo extends HTMLElement {
@@ -14,14 +14,14 @@ class WorkoutWeeklyInfo extends HTMLElement {
 
   constructor() {
     super();
-    this._workoutWeeklyInfo = "";
-    this.attachShadow({ mode: "open" });
+    this._workoutWeeklyInfo = '';
+    this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
     this.render();
   }
   render() {
-    this.attachShadow.innerHTML = "";
+    this.attachShadow.innerHTML = '';
     console.log(this.workoutWeeklyInfo);
     const { shadowRoot } = this;
     const instance = document.importNode(
@@ -42,14 +42,14 @@ class WorkoutWeeklyInfo extends HTMLElement {
       }
 
       let date = createDateString(dateCreated);
-      instance.querySelector("#blok_workout").innerHTML =
+      instance.querySelector('#blok_workout').innerHTML =
         createRowWithAvailableDataView(
           getDayOnCroatian(day.day),
           date,
           day.workouts
         );
     } else {
-      instance.querySelector("#blok_workout").innerHTML =
+      instance.querySelector('#blok_workout').innerHTML =
         createRowWithEmptyDataView(getDayOnCroatian(day.day));
     }
 
@@ -59,7 +59,7 @@ class WorkoutWeeklyInfo extends HTMLElement {
 
 function createRowWithAvailableDataView(day, date, workouts) {
   return `
-     <link rel="stylesheet" href="stylesheet.css" />
+     <link rel="stylesheet" href="../styles/stylesheet.css" />
   <div class="blok-naslov">
           <h2 class="blok-naslov">${day}</h2>
           <p>${date}</p>
@@ -101,7 +101,7 @@ function noWorkoutView(msg) {
 }
 
 function generateListItems(argument) {
-  items = "";
+  items = '';
   argument.forEach((workout) => {
     items += `
           <tr>
@@ -123,4 +123,4 @@ function generateListItems(argument) {
   return items;
 }
 
-customElements.define("workout-weekly-info", WorkoutWeeklyInfo);
+customElements.define('workout-weekly-info', WorkoutWeeklyInfo);

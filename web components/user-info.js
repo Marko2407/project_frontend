@@ -1,7 +1,7 @@
-const templateUser = document.createElement("template");
+const templateUser = document.createElement('template');
 templateUser.innerHTML += `
   <div class = "blok-podaci">
-        <link rel="stylesheet" href="stylesheet.css" />
+        <link rel="stylesheet" href="../styles/stylesheet.css" />
       
         <div class="blok-podaci__info" id="blok_korisnik_info"></div>
         <div class="blok-podaci__gumbi">
@@ -22,8 +22,8 @@ class UserInfo extends HTMLElement {
 
   constructor() {
     super();
-    this._userI = "";
-    this.attachShadow({ mode: "open" });
+    this._userI = '';
+    this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
     this.render();
@@ -32,7 +32,7 @@ class UserInfo extends HTMLElement {
     console.log(this.userI);
     const { shadowRoot } = this;
     const instance = document.importNode(templateUser.content, true);
-    instance.querySelector("#blok_korisnik_info").innerHTML = createUserRowView(
+    instance.querySelector('#blok_korisnik_info').innerHTML = createUserRowView(
       this.userI
     );
 
@@ -53,18 +53,18 @@ function createUserRowView(user) {
 }
 
 function setClickListenersUser(instance) {
-  const userModalContainer = document.getElementById("user_modal_container");
-  instance.querySelector("#user_edit").addEventListener("click", () => {
+  const userModalContainer = document.getElementById('user_modal_container');
+  instance.querySelector('#user_edit').addEventListener('click', () => {
     fillUserInfo();
-    userModalContainer.classList.add("show");
+    userModalContainer.classList.add('show');
   });
 
   instance
-    .querySelector("#user_delete")
-    .addEventListener("click", async (e) => {
+    .querySelector('#user_delete')
+    .addEventListener('click', async (e) => {
       await deleteUser();
       location.reload();
     });
 }
 
-customElements.define("user-info", UserInfo);
+customElements.define('user-info', UserInfo);

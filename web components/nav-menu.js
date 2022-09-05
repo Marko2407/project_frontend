@@ -1,7 +1,7 @@
-const templateNav = document.createElement("template");
+const templateNav = document.createElement('template');
 templateNav.innerHTML += `
                 <!-- CSS -->
-        <link rel="stylesheet" href="stylesheet.css" />
+        <link rel="stylesheet" href="../styles/stylesheet.css" />
 
         <!--FA ICON -->
         <link
@@ -14,7 +14,7 @@ templateNav.innerHTML += `
 class NavMenu extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
   }
   connectedCallback() {
     this.render();
@@ -22,12 +22,12 @@ class NavMenu extends HTMLElement {
 
   render() {
     const { shadowRoot } = this;
-    const templateNode = document.getElementById("nav-template");
+    const templateNode = document.getElementById('nav-template');
 
-    shadowRoot.innerHTML = "";
+    shadowRoot.innerHTML = '';
     if (templateNav) {
       const instance = document.importNode(templateNav.content, true);
-      instance.querySelector(".nav-column").innerHTML = `
+      instance.querySelector('.nav-column').innerHTML = `
     <div>
         <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
       </div>
@@ -40,12 +40,12 @@ class NavMenu extends HTMLElement {
         ></a>
       </div>
     `;
-      console.log("super ovo radi");
+      console.log('super ovo radi');
       shadowRoot.appendChild(instance);
     } else {
-      console.log("Došlo je do greške");
+      console.log('Došlo je do greške');
     }
   }
 }
 
-customElements.define("nav-menu", NavMenu);
+customElements.define('nav-menu', NavMenu);
