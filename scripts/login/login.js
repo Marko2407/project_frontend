@@ -2,8 +2,9 @@
 
 let uuid = Cookies.get("uuid");
 console.log(uuid);
+
 if(uuid != undefined){
-    odvedi ga na pocetnu
+   // odvedi ga na pocetnu
 }
 
 JsLoadingOverlay.setOptions({
