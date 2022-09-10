@@ -33,7 +33,6 @@ class GraphInfoWeekly extends HTMLElement {
     setClickListeners(instance);
     const ctx = instance.querySelector('#myChart');
     shadowRoot.appendChild(instance);
-    console.log(ctx);
     createChart(ctx, this.yValues.values);
   }
 }

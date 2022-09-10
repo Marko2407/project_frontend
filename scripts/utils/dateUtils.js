@@ -12,7 +12,6 @@ function multiplyWeeks(numOfWeeks, date) {
 }
 
 function createDateString(dateCreated) {
-  console.log(dateCreated);
   return (
     dateCreated.getDate() +
     '.' +
@@ -28,7 +27,6 @@ const removeTime = (date) => {
 };
 
 function getDayOnCroatian(day) {
-  console.log(day);
   if (day == 'Sunday') {
     return 'Nedjelja';
   } else if (day == 'Monday') {

@@ -10,6 +10,13 @@ const inputKoraci = document.querySelector("input[name = 'koraci']");
 const grafInfo = document.getElementById("blok-graf_info");
 const blokGraf = document.getElementById("blok-graf");
 
+let uuid = Cookies.get("uuid");
+console.log(uuid);
+
+if(uuid == undefined){
+  // odvedi na login
+}
+
 JsLoadingOverlay.setOptions({
   overlayBackgroundColor: "#666666",
   overlayOpacity: 0.6,
@@ -52,7 +59,6 @@ async function init() {
 
 async function getUser() {
   const response = await getCurrentUser();
-  console.log(response);
   if (response != null) {
     return true;
   } else {
@@ -61,7 +67,8 @@ async function getUser() {
 }
 
 async function getActivityForToday() {
-  const response = await getTodayActivity();
+  const response = await getTodayActivity(uuid);
+  console.log(response)
   if (response != null) {
     if (response != null) {
       activityDailyResponse = response;
@@ -74,7 +81,8 @@ async function getActivityForToday() {
 }
 
 async function getWorkoutsForToday() {
-  const response = await getTodayWorkouts();
+  const date = subtractWeeks(0);
+  const response = await getTodayWorkouts(uuid, date.toString());
   if (response != null) {
     workoutResponse = response;
     return true;
@@ -84,10 +92,9 @@ async function getWorkoutsForToday() {
 }
 
 async function getActivitiesWeekly() {
-  const response = await getWeeklyActivities();
+  const response = await getWeeklyActivities(uuid);
   if (response != null) {
     response.activities.forEach((element) => {
-      console.log(element);
       yValues.push(element.totalSteps);
     });
     activityWeeklyResponse = response;
@@ -98,7 +105,8 @@ async function getActivitiesWeekly() {
 }
 
 async function updateSteps(koraci) {
-  await updateTodaySteps(koraci);
+  console.log(uuid)
+  await updateTodaySteps(koraci, uuid);
   location.reload();
 }
 
@@ -127,7 +135,6 @@ function renderActivityResponse(activityWeekly, activityDaily) {
 }
 
 function renderUserResponse(user) {
-  console.log(CREATED_USER + JSON.stringify(user));
   const container = document.getElementById("blok-podaci");
   const userContainer = document.createElement("user-info");
   userContainer.userI = user;
@@ -150,7 +157,7 @@ function createClickListeners() {
     for (let i = 0; i < listOfCreatedWorkout.length; i++) {
       //ako title nije prazan, kreiraj novu vjezbu
       if (listOfCreatedWorkout[i][0] !== "") {
-        await createNewWorkout(listOfCreatedWorkout[i]);
+        await createNewWorkout(listOfCreatedWorkout[i], uuid);
       } else {
         //TODO('Add Alert to enter Title')
         console.log(PLEASE_ENTER_TITLE);
@@ -163,15 +170,7 @@ function createClickListeners() {
     e.preventDefault();
     JsLoadingOverlay.show();
     mapUserInputs();
-    if (user.idKorisnika == null) {
-      if (user.imeKorisnika !== "" || user.prezimeKorisnika !== "") {
-        await createNewUser(user);
-      } else {
-        console.log(PLEASE_ENTER_USER_INFO);
-      }
-    } else {
-      await updateUser(user);
-    }
+    await updateUser(user);
     location.reload();
   });
 }

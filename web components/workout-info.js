@@ -35,7 +35,6 @@ class WorkoutInfo extends HTMLElement {
   }
   render() {
     this.attachShadow.innerHTML = '';
-    console.log(this.workoutInfo);
     const { shadowRoot } = this;
     const instance = document.importNode(templateWorkoutInfo.content, true);
 

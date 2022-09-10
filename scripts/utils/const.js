@@ -10,3 +10,4 @@ const NO_WORKOUTS_AVAILABLE = 'Nema unesenih vježbi';
 const NOT_FIND = 'Nema rezultata!';
 const EMPTY = 'Empty list';
 const EROR = 'Došlo je do pogreške!';
+const TEST_USER = "631bd45f0e6fbade4daa797d";

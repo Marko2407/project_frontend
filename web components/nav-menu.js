@@ -40,7 +40,6 @@ class NavMenu extends HTMLElement {
         ></a>
       </div>
     `;
-      console.log('super ovo radi');
       shadowRoot.appendChild(instance);
     } else {
       console.log('Došlo je do greške');

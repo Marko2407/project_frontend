@@ -1,5 +1,7 @@
 async function getCurrentUser() {
-  const userQuery = await queryFetch(GET_CURRENT_USER_QUERY);
+  const userQuery = await queryFetch(GET_CURRENT_USER_QUERY, {
+    userId: TEST_USER,
+  });
   console.log(userQuery);
   if (userQuery.data.getUser != null) {
     mapUserInfo(userQuery.data.getUser);
@@ -28,10 +30,10 @@ async function createNewUser(user) {
   });
 }
 
-async function updateUser(user) {
+async function updateUser(user, uuid) {
   console.log(user);
   await queryFetch(UPDATE_USER_MUTATION, {
-    updateUserId: user.idKorisnika,
+    updateUserId: uuid,
     firstName: user.imeKorisnika,
     lastName: user.prezimeKorisnika,
     height: user.visinaKorisnika,

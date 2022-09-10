@@ -22,7 +22,6 @@ class WorkoutWeeklyInfo extends HTMLElement {
   }
   render() {
     this.attachShadow.innerHTML = '';
-    console.log(this.workoutWeeklyInfo);
     const { shadowRoot } = this;
     const instance = document.importNode(
       templateWorkoutWeeklyInfo.content,

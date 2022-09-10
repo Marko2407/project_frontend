@@ -4,6 +4,9 @@ const prevM = document.getElementById("left");
 const nextM = document.getElementById("right");
 const dateRange = document.getElementById("dateRange");
 
+let uuid = Cookies.get("uuid");
+console.log(uuid);
+
 let monthCounter = 0;
 
 JsLoadingOverlay.setOptions({
@@ -26,6 +29,7 @@ let id = [];
 async function getWeeklyActivitiesl(date = new Date()) {
   JsLoadingOverlay.show();
   const a = await queryFetch(GET_MONTHLY_ACTIVITIES_QUERY, {
+    userId: uuid,
     date: date.toString(),
   });
   const result = a.data.getMonthlyActivities;
