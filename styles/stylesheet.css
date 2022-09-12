@@ -185,6 +185,7 @@ h3.blok-podaci_-name1 {
   margin: 15px 0 15px 0;
   width: 10rem;
   height: 2rem;
+  text-align: center;
   border: 1px solid #b1aeae;
   border-radius: 5px;
 }

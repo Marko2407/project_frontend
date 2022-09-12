@@ -29,7 +29,7 @@ class NavMenu extends HTMLElement {
       const instance = document.importNode(templateNav.content, true);
       instance.querySelector('.nav-column').innerHTML = `
     <div>
-        <a href="index.html"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <a href="pocetna.html"><i class="fa fa-home" aria-hidden="true"></i></a>
       </div>
       <div>
         <a href="vježbe.html"><i class="fa fa-child" aria-hidden="true"></i></a>

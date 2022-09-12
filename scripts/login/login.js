@@ -26,7 +26,7 @@ const loginButton = document.getElementById('login');
 const registerButton = document.getElementById('registerBtn');
 
 if (uuid != undefined) {
-  location.assign('index.html');
+  location.assign('pocetna.html');
 }
 
 JsLoadingOverlay.setOptions({
@@ -50,7 +50,7 @@ async function loginUser(username, password) {
   if (result != null) {
     Cookies.set('uuid', result.id);
     console.log('uspjesna prijava');
-    location.assign('index.html');
+    location.assign('pocetna.html');
     //odvedi na pocetnu
   } else {
     console.log('neuspjesna prijava');
@@ -66,7 +66,7 @@ async function registerUser() {
   console.log(result);
   if (result != null) {
     Cookies.set('uuid', result.id);
-    location.assign('index.html');
+    location.assign('pocetna.html');
     //odvedi na pocetnu stranicu
   } else {
     alert('Greška ');
