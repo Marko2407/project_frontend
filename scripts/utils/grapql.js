@@ -1,7 +1,7 @@
 function queryFetch(query, variables) {
   return fetch(DEV_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       query: query,
       variables: variables,
@@ -41,14 +41,18 @@ const UPDATE_USER_MUTATION = ` mutation UpdateUser($updateUserId: String, $first
   }
 `;
 
-const CREATE_NEW_USER_MUTATION = ` mutation CreateUser($firstName: String, $lastName: String, $weight: Int, $height: Int) {
-  createUser(firstName: $firstName, lastName: $lastName, weight: $weight, height: $height) {
-      firstName
-      lastName
-      weight
-      height
-    }
+const CREATE_NEW_USER_MUTATION = `mutation Mutation($firstName: String, $lastName: String, $weight: Int, $height: Int, $username: String, $password: String) {
+  createUser(firstName: $firstName, lastName: $lastName, weight: $weight, height: $height, username: $username, password: $password) {
+    id
+    firstName
+    lastName
+    weight
+    height
+    username
+    password
   }
+}
+
 `;
 
 const GET_CURRENT_USER_QUERY = `
@@ -194,5 +198,3 @@ const GET_LOGIN_USER = `query LoginUser($username: String, $password: String) {
   }
 }
 `;
-
-

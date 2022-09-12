@@ -39,7 +39,13 @@ class NavMenu extends HTMLElement {
           ><i class="fa fa-bar-chart" aria-hidden="true"></i
         ></a>
       </div>
-    `;
+      <div>
+        <a href="" id="sign-out-btn">
+          <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </a>
+      </div>
+      `;
+      clickListeners(instance);
       shadowRoot.appendChild(instance);
     } else {
       console.log('Došlo je do greške');
@@ -48,3 +54,16 @@ class NavMenu extends HTMLElement {
 }
 
 customElements.define('nav-menu', NavMenu);
+
+function clickListeners(instance) {
+  const signOutBtn = instance.querySelector('#sign-out-btn');
+  signOutBtn.addEventListener('click', () => {
+    console.log('ckc');
+    signOut(instance);
+  });
+}
+
+function signOut() {
+  Cookies.remove('uuid');
+  location.assign('login.html');
+}

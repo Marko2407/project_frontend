@@ -1,4 +1,4 @@
-const addNewUserModal = document.getElementById("add_user");
+const addNewUserModal = document.getElementById('add_user');
 
 const imeKorisnika = document.querySelector("input[name = 'ime_korisnika']");
 const prezimeKorisnika = document.querySelector(
@@ -17,6 +17,8 @@ let user = {
   prezimeKorisnika: null,
   visinaKorisnika: null,
   tezinaKorisnika: null,
+  korisnickoIme: null,
+  lozinkaKorisnika: null,
 };
 
 function fillUserInfo() {
@@ -26,9 +28,11 @@ function fillUserInfo() {
   tezinaKorisnika.value = user.tezinaKorisnika;
 }
 
-function mapUserInputs() {
-  user.imeKorisnika = imeKorisnika.value;
-  user.prezimeKorisnika = prezimeKorisnika.value;
-  user.visinaKorisnika = parseInt(visinaKorisnika.value);
-  user.tezinaKorisnika = parseInt(tezinaKorisnika.value);
+function mapUserInputs(name, lastName, height, weight, userName, password) {
+  user.imeKorisnika = name;
+  user.prezimeKorisnika = lastName;
+  user.visinaKorisnika = parseInt(height);
+  user.tezinaKorisnika = parseInt(weight);
+  user.korisnickoIme = userName;
+  user.lozinkaKorisnika = password;
 }

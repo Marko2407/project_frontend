@@ -1,0 +1,124 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- TITLE ICON -->
+    <link rel="shortcut icon" href="../images/title-icon.png" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../styles/stylesheet.css" />
+
+    <!--FA ICON -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- CANVAS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <!-- WEB COMPONENTS -->
+    <script src="../web components/nav-menu.js"></script>
+    <script src="../web components/card-title.js"></script>
+    <script src="../web components/user-info.js"></script>
+    <script src="../web components/graph-info.js"></script>
+    <script src="../web components/graph-info-weekly.js"></script>
+    <script src="../web components/workout-info.js"></script>
+
+    <title>Prijava</title>
+  </head>
+
+  <body>
+    <div style="position: absolute; left: 45%">
+      <big-title title="Dobrodošli!"></big-title>
+    </div>
+
+    <!-- PRIJAVA -->
+    <div class="modal-container" id="modal_container_prijava">
+      <div class="modal" style="width: 500px">
+        <i
+          class="fa fa-close fa-close-1"
+          id="close"
+          style="font-size: 28px"
+        ></i>
+        <h3>Prijava korisnika</h3>
+        <br />
+        <label for="username">Korisničko ime: </label>
+        <br />
+        <input type="text" id="username" name="username" />
+        <br />
+        <label for="password">Lozinka: </label>
+        <br />
+        <input type="password" id="password" name="password" />
+        <br />
+        <br />
+        <br />
+
+        <button class="btn" id="login">Prijavi se</button>
+      </div>
+    </div>
+
+    <!-- REGISTRACIJA -->
+    <div class="modal-container" id="modal_container_registracija">
+      <div class="modal" style="width: auto">
+        <i
+          class="fa fa-close fa-close-2"
+          id="closeReg"
+          style="font-size: 28px"
+        ></i>
+        <h3>Registracija korisnika:</h3>
+        <br />
+        <table>
+          <tr>
+            <th>Ime:</th>
+            <th>Prezime:</th>
+            <th>Težina:</th>
+            <th>Visina:</th>
+            <th>Korisničko ime:</th>
+            <th>Lozinka:</th>
+          </tr>
+
+          <tr>
+            <td>
+              <input type="text" name="firstName" />
+            </td>
+            <td>
+              <input type="text" name="lastName" />
+            </td>
+            <td>
+              <input type="text" name="weight" />
+            </td>
+            <td>
+              <input type="text" name="height" />
+            </td>
+            <td>
+              <input type="text" name="reg_username" />
+            </td>
+            <td>
+              <input type="text" name="reg_password" />
+            </td>
+          </tr>
+        </table>
+        <br />
+        <button class="btn" id="registerBtn">Registriraj se</button>
+      </div>
+    </div>
+
+    <div class="button-containr">
+      <div>
+        <button class="btn" id="prijava">Prijava</button>
+        <button class="btn" id="registracija">Registracija</button>
+      </div>
+    </div>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"></script>
+    <script src="../scripts/login/login.js"></script>
+    <script src="../scripts/utils/const.js"></script>
+    <script src="../scripts/utils/grapql.js"></script>
+    <script src="../scripts/index/indexUser.js"></script>
+    <script src="../scripts/index/userModal.js"></script>
+    <script src="../web components/big-title.js"></script>
+  </body>
+</html>

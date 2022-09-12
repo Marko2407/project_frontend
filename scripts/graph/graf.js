@@ -1,29 +1,29 @@
-const graf = document.getElementById("graf");
-const grafInfo = document.getElementById("blok-graf__info");
-const prevM = document.getElementById("left");
-const nextM = document.getElementById("right");
-const dateRange = document.getElementById("dateRange");
+const graf = document.getElementById('graf');
+const grafInfo = document.getElementById('blok-graf__info');
+const prevM = document.getElementById('left');
+const nextM = document.getElementById('right');
+const dateRange = document.getElementById('dateRange');
 
-let uuid = Cookies.get("uuid");
+let uuid = Cookies.get('uuid');
 console.log(uuid);
 
 let monthCounter = 0;
 
 JsLoadingOverlay.setOptions({
-  overlayBackgroundColor: "#666666",
+  overlayBackgroundColor: '#666666',
   overlayOpacity: 0.6,
-  spinnerIcon: "ball-spin-clockwise",
-  spinnerColor: "#000",
-  spinnerSize: "2x",
-  overlayIDName: "overlay",
-  spinnerIDName: "spinner",
+  spinnerIcon: 'ball-spin-clockwise',
+  spinnerColor: '#000',
+  spinnerSize: '2x',
+  overlayIDName: 'overlay',
+  spinnerIDName: 'spinner',
   offsetY: 0,
   offsetX: 0,
   lockScroll: false,
   containerID: null,
 });
 
-const blokGraf = document.getElementById("generiranje-grafa");
+const blokGraf = document.getElementById('generiranje-grafa');
 let id = [];
 
 async function getWeeklyActivitiesl(date = new Date()) {
@@ -50,7 +50,7 @@ async function getWeeklyActivitiesl(date = new Date()) {
   blokGraf.innerHTML = ``;
 
   result.forEach((element) => {
-    const graphsContainer = document.createElement("graph-info-monthly");
+    const graphsContainer = document.createElement('graph-info-monthly');
     graphsContainer.element = { element: element, weekNumber };
     weekNumber++;
     blokGraf.appendChild(graphsContainer);
@@ -59,12 +59,12 @@ async function getWeeklyActivitiesl(date = new Date()) {
 }
 
 function createClickListeners() {
-  prevM.addEventListener("click", () => {
+  prevM.addEventListener('click', () => {
     monthCounter--;
     console.log(monthCounter);
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
-  nextM.addEventListener("click", () => {
+  nextM.addEventListener('click', () => {
     monthCounter++;
     getWeeklyActivitiesl(subtractMonths(monthCounter));
   });
@@ -75,5 +75,11 @@ function noActivitiesView(msg) {
   <error-msg title ="${msg}"></error-msg>`;
 }
 
-getWeeklyActivitiesl(subtractMonths(0));
-createClickListeners();
+if (uuid != undefined) {
+  //First method to initiate when page open
+  getWeeklyActivitiesl(subtractMonths(0));
+  createClickListeners();
+} else {
+  location.assign('login.html');
+  // odvedi na login
+}

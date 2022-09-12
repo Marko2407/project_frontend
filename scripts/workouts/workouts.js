@@ -1,22 +1,22 @@
-const workoutList = document.getElementById("workout-list");
-const workoutTitle = document.getElementById("workoutNames");
-const searchEnter = document.getElementById("search");
-const searchInput = searchEnter.elements["search"];
-const blokIcon = document.getElementById("blok-icon");
-const leftArrow = document.getElementById("left");
-const rightArrow = document.getElementById("right");
+const workoutList = document.getElementById('workout-list');
+const workoutTitle = document.getElementById('workoutNames');
+const searchEnter = document.getElementById('search');
+const searchInput = searchEnter.elements['search'];
+const blokIcon = document.getElementById('blok-icon');
+const leftArrow = document.getElementById('left');
+const rightArrow = document.getElementById('right');
 
 let number = 0;
-let items = "";
+let items = '';
 
 JsLoadingOverlay.setOptions({
-  overlayBackgroundColor: "#666666",
+  overlayBackgroundColor: '#666666',
   overlayOpacity: 0.6,
-  spinnerIcon: "ball-spin-clockwise",
-  spinnerColor: "#000",
-  spinnerSize: "2x",
-  overlayIDName: "overlay",
-  spinnerIDName: "spinner",
+  spinnerIcon: 'ball-spin-clockwise',
+  spinnerColor: '#000',
+  spinnerSize: '2x',
+  overlayIDName: 'overlay',
+  spinnerIDName: 'spinner',
   offsetY: 0,
   offsetX: 0,
   lockScroll: false,
@@ -24,17 +24,15 @@ JsLoadingOverlay.setOptions({
 });
 
 // BLOKOVI S VJEŽBAMA
-const blokVjezbi = document.getElementById("row");
-const uuid = Cookies.get("uuid");
-console.log(uuid)
-if(uuid == undefined){
-  //odvedi na prijavu, odlogiraj..
-}
+const blokVjezbi = document.getElementById('row');
+const uuid = Cookies.get('uuid');
+console.log(uuid);
+
 async function getWeeklyWorkouts(weeklyOffset) {
   JsLoadingOverlay.show();
   date = subtractWeeks(weeklyOffset);
 
-  document.getElementById("blok-proba").innerHTML = ``;
+  document.getElementById('blok-proba').innerHTML = ``;
   const workouts = await queryFetch(GET_WORKOUT_FOR_SELECTED_WEEK_QUERY, {
     date: date.toString(),
     userId: uuid,
@@ -47,7 +45,7 @@ async function getWeeklyWorkouts(weeklyOffset) {
     });
   } else {
     console.log(EMPTY);
-    document.getElementById("blok-proba").innerHTML = noWorkoutView(
+    document.getElementById('blok-proba').innerHTML = noWorkoutView(
       NO_WORKOUTS_AVAILABLE
     );
   }
@@ -55,10 +53,10 @@ async function getWeeklyWorkouts(weeklyOffset) {
 }
 
 function getWorkoutBySearch(searchInput) {
-  if (searchInput != "") {
-    blokIcon.classList.add("hide-blok");
-    blokIcon.classList.remove("show-blok");
-    console.log(searchInput)
+  if (searchInput != '') {
+    blokIcon.classList.add('hide-blok');
+    blokIcon.classList.remove('show-blok');
+    console.log(searchInput);
     return queryFetch(GET_WORKOUT_BY_SEARCH_QUERY, {
       searchInput: searchInput,
       userId: uuid,
@@ -66,8 +64,8 @@ function getWorkoutBySearch(searchInput) {
       return res.data;
     });
   } else {
-    blokIcon.classList.remove("hide-blok");
-    blokIcon.classList.add("show-blok");
+    blokIcon.classList.remove('hide-blok');
+    blokIcon.classList.add('show-blok');
     getWeeklyWorkouts(number);
     console.log(EMPTY);
   }
@@ -75,19 +73,19 @@ function getWorkoutBySearch(searchInput) {
 
 //Kreiranje eventListenera
 function createClickListeners() {
-  leftArrow.addEventListener("click", async (e) => {
+  leftArrow.addEventListener('click', async (e) => {
     e.preventDefault();
     number--;
     getWeeklyWorkouts(number);
   });
 
-  rightArrow.addEventListener("click", async (e) => {
+  rightArrow.addEventListener('click', async (e) => {
     e.preventDefault();
     number++;
     getWeeklyWorkouts(number);
   });
 
-  searchEnter.addEventListener("submit", async (e) => {
+  searchEnter.addEventListener('submit', async (e) => {
     e.preventDefault();
     JsLoadingOverlay.show();
     const getWorkoutBySearchInput = await getWorkoutBySearch(searchInput.value);
@@ -101,7 +99,7 @@ function createClickListeners() {
 //Kreiranje UI-a
 function renderSearchResultView(searchResult) {
   //isprazni div
-  document.getElementById("blok-proba").innerHTML = ``;
+  document.getElementById('blok-proba').innerHTML = ``;
   if (searchResult != 0) {
     searchResult.forEach((day) => {
       createWorkoutsElement(day);
@@ -109,20 +107,25 @@ function renderSearchResultView(searchResult) {
   } else {
     //nema rezultata
     console.log(EMPTY);
-    document.getElementById("blok-proba").innerHTML = noWorkoutView(NOT_FIND);
+    document.getElementById('blok-proba').innerHTML = noWorkoutView(NOT_FIND);
   }
 }
 
 function createWorkoutsElement(workouts) {
-  const workoutContainer = document.createElement("workout-weekly-info");
+  const workoutContainer = document.createElement('workout-weekly-info');
   workoutContainer.workoutWeeklyInfo = workouts;
-  document.getElementById("blok-proba").appendChild(workoutContainer);
+  document.getElementById('blok-proba').appendChild(workoutContainer);
 }
 
 function init() {
   getWeeklyWorkouts(0);
 }
 
-//First method to initiate when page open
-init();
-createClickListeners();
+if (uuid != undefined) {
+  //First method to initiate when page open
+  init();
+  createClickListeners();
+} else {
+  location.assign('login.html');
+  // odvedi na login
+}

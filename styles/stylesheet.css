@@ -156,6 +156,7 @@ h3.blok-podaci_-name1 {
   height: 100vh;
   width: 100vw;
   transition: opacity 0.25s ease;
+  z-index: 10;
 }
 
 .modal-container.show {
@@ -386,7 +387,25 @@ table tr td {
 
 i.fa.fa-home:before,
 i.fa.fa-child:before,
-i.fa.fa-bar-chart:before {
+i.fa.fa-bar-chart:before,
+i.fa.fa-sign-out:before {
   color: #fff;
   font-size: 1.6rem;
+}
+
+/* ---------- LOGIN PAGE ---------- */
+.button-containr {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+}
+
+.fa-close-1 {
+  position: relative;
+  left: 200px;
+}
+
+.fa-close-2 {
+  position: relative;
+  left: 570px;
 }
