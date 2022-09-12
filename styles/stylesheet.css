@@ -88,6 +88,7 @@ body {
 
 .blok-grafovi__gumbi > input {
   margin-bottom: 1rem;
+  text-align: center;
   margin: 15px 0 15px 0;
   height: 1.6rem;
   border: 1px solid #b1aeae;
